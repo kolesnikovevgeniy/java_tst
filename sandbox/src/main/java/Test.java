@@ -4,8 +4,7 @@ public class Test
 	public static void main(String[] args)
 	{
 		// примеры вызовов
-		distance(new Point(10,10), new Point(5,5));
-		System.out.println("distance(new Point(1,1), new Point(0,0)) = " + Double.toString(distance(new Point(-1,1), new Point(5,5))));
+		System.out.println("distance(new Point(-1,1), new Point(5,5)) = " + Double.toString(distance(new Point(-1,1), new Point(5,5))));
 
 		Point p = new Point(10, 10);
 		System.out.println("p.distance(7,7) = " + Double.toString(p.distance(7,7)));
