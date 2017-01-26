@@ -16,7 +16,7 @@ public class PointTest {
         //Проверка на падение
         Assert.assertNotEquals(Point.distance(0,1,1,1), 2.0);
     }
-    
+
     @Test
     public void testMethod1()
     {
