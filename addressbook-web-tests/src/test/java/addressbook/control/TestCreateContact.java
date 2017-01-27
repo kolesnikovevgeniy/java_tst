@@ -12,9 +12,9 @@ public class TestCreateContact {
         this.wd = wd;
     }
 
-    public void testCreateContact() {
+    public void testCreateContact(ContactData cd) {
         addContactPage();
-        fillContactData(new ContactData("Evgeniy", "Antolievich", "Kolesnikov", "Koles", "Title", "Company", "Adress", "home", "mobile num", "good work", "very best fax", "mail", "mail2", "mail3", "url home pahe", "adress", "home", "note"));
+        fillContactData(cd);
         sendContact();
     }
 

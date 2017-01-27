@@ -12,10 +12,10 @@ public class TestCreateGroup {
         this.wd = wd;
     }
 
-    public void testCreateGroup() {
+    public void testCreateGroup(GroupData gd) {
         gotoGroupCreate();
         clickCreateNewGroup();
-        fillGroupParams(new GroupData("test", "test1", "test2"));
+        fillGroupParams(gd);
         clickAddGroup();
         returnGroupsPage();
     }

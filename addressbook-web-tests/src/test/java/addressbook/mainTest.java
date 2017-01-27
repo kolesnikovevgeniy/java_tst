@@ -2,6 +2,8 @@ package addressbook;
 
 import addressbook.control.TestCreateGroup;
 import addressbook.control.TestCreateContact;
+import addressbook.model.ContactData;
+import addressbook.model.GroupData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -46,13 +48,13 @@ public class mainTest {
     @Test
     public void testCreateGroup()
     {
-        cg.testCreateGroup();
+        cg.testCreateGroup(new GroupData("test8", "test1", "test2"));
     }
 
     @Test
     public void testCreateContact()
     {
-        cc.testCreateContact();
+        cc.testCreateContact(new ContactData("Evgeniy2", "Antolievich2", "Kolesnikov2", "Koles", "Title", "Company", "Address", "home", "mobile num", "good work", "very best fax", "mail", "mail2", "mail3", "url home pahe", "adress", "home", "note"));
     }
 
     @AfterMethod
