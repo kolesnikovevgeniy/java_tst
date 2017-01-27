@@ -35,8 +35,6 @@ public class TestCreateContact {
         wd.findElement(By.name("nickname")).click();
         wd.findElement(By.name("nickname")).clear();
         wd.findElement(By.name("nickname")).sendKeys(contactData.getNick());
-        // вот это пока не знаю, как реализовать upload
-        //wd.findElement(By.name("photo")).click();
         wd.findElement(By.name("title")).click();
         wd.findElement(By.name("title")).clear();
         wd.findElement(By.name("title")).sendKeys(contactData.getTitle());
@@ -93,9 +91,6 @@ public class TestCreateContact {
         wd.findElement(By.name("ayear")).click();
         wd.findElement(By.name("ayear")).clear();
         wd.findElement(By.name("ayear")).sendKeys(year);
-        /*if (!wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).isSelected()) {
-            wd.findElement(By.xpath("//div[@id='content']/form/select[5]//option[2]")).click();
-        }*/
     }
 
     private void fillBirthday(final int day, final int month, String year) {
