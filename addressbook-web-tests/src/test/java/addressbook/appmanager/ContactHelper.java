@@ -33,31 +33,38 @@ public class ContactHelper extends BaseHelper {
         type(By.name("email2"), contactData.getMail2());
         type(By.name("email3"), contactData.getMail3());
         type(By.name("homepage"), contactData.getHomepage());
-        fillBirthday(19, 2, "1983");
-        fillAnniversary(18, 4, "1800");
+
+        fillBirthday(contactData);
+        fillAnniversary(contactData);
         type(By.name("address2"), contactData.getAddress2());
         type(By.name("phone2"), contactData.getPhone2());
         type(By.name("notes"), contactData.getNote());
     }
 
-    public void fillAnniversary(final int day, final int month, String year) {
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[3]//option[" + day + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[3]//option[" + day + "]"));
+    public void fillAnniversary(ContactData contactData) {
+        if (contactData.getAnniversary().length < 3)
+            return;
+
+        if (!isSelected(By.xpath("//div[@id='content']/form/select[3]//option[" + contactData.getAnniversary()[0] + "]"))) {
+            click(By.xpath("//div[@id='content']/form/select[3]//option[" + contactData.getAnniversary()[0] + "]"));
         }
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[4]//option[" + month + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[4]//option[" + month + "]"));
+        if (!isSelected(By.xpath("//div[@id='content']/form/select[4]//option[" + contactData.getAnniversary()[1] + "]"))) {
+            click(By.xpath("//div[@id='content']/form/select[4]//option[" + contactData.getAnniversary()[1] + "]"));
         }
-        type(By.name("ayear"), year);
+        type(By.name("ayear"), contactData.getAnniversary()[2]);
     }
 
-    public void fillBirthday(final int day, final int month, String year) {
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[1]//option[" + day + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[1]//option[" + day + "]"));
+    public void fillBirthday(ContactData contactData) {
+        if (contactData.getBirthday().length < 3)
+            return;
+
+        if (!isSelected(By.xpath("//div[@id='content']/form/select[1]//option[" + contactData.getBirthday()[0] + "]"))) {
+            click(By.xpath("//div[@id='content']/form/select[1]//option[" + contactData.getBirthday()[0] + "]"));
         }
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[2]//option[" + month + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[2]//option[" + month + "]"));
+        if (!isSelected(By.xpath("//div[@id='content']/form/select[2]//option[" + contactData.getBirthday()[1] + "]"))) {
+            click(By.xpath("//div[@id='content']/form/select[2]//option[" + contactData.getBirthday()[1] + "]"));
         }
-        type(By.name("byear"), year);
+        type(By.name("byear"), contactData.getBirthday()[2]);
     }
 
     public void addContactPage() {

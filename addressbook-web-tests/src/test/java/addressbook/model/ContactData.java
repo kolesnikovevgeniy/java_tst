@@ -1,26 +1,30 @@
 package addressbook.model;
 
-public class ContactData {
-    private final String firstname;
-    private final String midlename;
-    private final String lastname;
-    private final String nick;
-    private final String title;
-    private final String company;
-    private final String adress;
-    private final String home;
-    private final String mobile;
-    private final String work;
-    private final String fax;
-    private final String mail;
-    private final String mail2;
-    private final String mail3;
-    private final String homepage;
-    private final String address2;
-    private final String phone2;
-    private final String note;
+import java.util.ArrayList;
 
-    public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note) {
+public class ContactData {
+    private  String firstname;
+    private  String midlename;
+    private  String lastname;
+    private  String nick;
+    private  String title;
+    private  String company;
+    private  String adress;
+    private  String home;
+    private  String mobile;
+    private  String work;
+    private  String fax;
+    private  String mail;
+    private  String mail2;
+    private  String mail3;
+    private  String homepage;
+    private  String address2;
+    private  String phone2;
+    private  String note;
+    private String[] birthday;
+    private String[] anniversary;
+
+    public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary) {
         this.firstname = firstname;
         this.midlename = midlename;
         this.lastname = lastname;
@@ -39,6 +43,16 @@ public class ContactData {
         this.address2 = address2;
         this.phone2 = phone2;
         this.note = note;
+        this.birthday = birthday;
+        this.anniversary = anniversary;
+    }
+
+    public String[] getBirthday() {
+        return birthday;
+    }
+
+    public String[] getAnniversary() {
+        return anniversary;
     }
 
     public String getFirstname() {

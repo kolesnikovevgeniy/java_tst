@@ -27,7 +27,11 @@ public class BaseHelper {
     protected boolean isSelected(By locator) {
         return wd.findElement(locator).isSelected();
     }
-    
+
+    protected boolean find(By locator) {
+        return wd.findElement(locator).isSelected();
+    }
+
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
