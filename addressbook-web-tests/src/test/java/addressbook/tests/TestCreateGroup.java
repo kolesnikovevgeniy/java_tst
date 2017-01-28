@@ -11,11 +11,11 @@ public class TestCreateGroup extends TestBase {
 
     @Test
     public void testCreateGroup() {
-        app.gotoGroupCreate();
-        app.clickCreateNewGroup();
-        app.fillGroupParams(new GroupData("test8", "test1", "test2"));
-        app.clickAddGroup();
-        app.returnGroupsPage();
+        app.getNavigationHelper().gotoGroupCreate();
+        app.getGroupHelper().clickCreateNewGroup();
+        app.getGroupHelper().fillGroupParams(new GroupData("test8", "test1", "test2"));
+        app.getGroupHelper().clickAddGroup();
+        app.getGroupHelper().returnGroupsPage();
     }
 
 }
