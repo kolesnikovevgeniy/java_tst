@@ -71,4 +71,15 @@ public class ContactHelper extends BaseHelper {
         click(By.linkText("add new"));
     }
 
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void clickEditContact() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    }
+
+    public void clickUpdateContact() {
+        click(By.name("update"));
+    }
 }
