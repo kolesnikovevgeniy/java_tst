@@ -2,6 +2,7 @@ package addressbook.appmanager;
 
 import addressbook.model.ContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
@@ -86,7 +87,8 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void deleteSelectedContact() {
-        click(By.name("//div[@id='content']/form[2]/div[2]/input"));
+        JavascriptExecutor js = (JavascriptExecutor)wd;
+        js.executeScript("DeleteSel();");
     }
 
     public void acceptDeleteContact()
