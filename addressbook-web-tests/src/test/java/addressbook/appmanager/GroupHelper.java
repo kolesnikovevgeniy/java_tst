@@ -47,4 +47,8 @@ public class GroupHelper extends BaseHelper{
     {
         click(By.name("update"));
     }
+
+    public void deleteSelectedGroup() {
+        click(By.name("delete"));
+    }
 }

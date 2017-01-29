@@ -42,6 +42,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void fillAnniversary(ContactData contactData) {
+        // проверяем на достаточный размер массив
         if (contactData.getAnniversary().length < 3)
             return;
 
@@ -55,6 +56,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void fillBirthday(ContactData contactData) {
+        // проверяем на достаточный размер массив
         if (contactData.getBirthday().length < 3)
             return;
 
@@ -81,5 +83,14 @@ public class ContactHelper extends BaseHelper {
 
     public void clickUpdateContact() {
         click(By.name("update"));
+    }
+
+    public void deleteSelectedContact() {
+        click(By.name("//div[@id='content']/form[2]/div[2]/input"));
+    }
+
+    public void acceptDeleteContact()
+    {
+        acceptAlert();
     }
 }
