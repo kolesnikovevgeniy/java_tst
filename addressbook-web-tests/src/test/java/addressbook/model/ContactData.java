@@ -1,7 +1,5 @@
 package addressbook.model;
 
-import java.util.ArrayList;
-
 public class ContactData {
     private  String firstname;
     private  String midlename;

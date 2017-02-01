@@ -1,6 +1,5 @@
 package addressbook.tests;
 
-import addressbook.model.GroupData;
 import org.testng.annotations.Test;
 
 /**
