@@ -12,7 +12,7 @@ public class TestEditGroup extends TestBase{
         app.getNavigationHelper().gotoGroups();
         app.getGroupHelper().selectAnyGroup();
         app.getGroupHelper().editGroup();
-        app.getGroupHelper().fillGroupParams(new GroupData("test11111111111111111111", "test1", "test2"));
+        app.getGroupHelper().fillGroupParams(new GroupData("test11ret1", null, "test56"));
         app.getGroupHelper().updateGroup();
         app.getGroupHelper().returnGroupsPage();
     }
