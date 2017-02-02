@@ -12,7 +12,28 @@ public class TestEditContact extends TestBase{
         app.getNavigationHelper().gotoHomePage();
         app.getContactHelper().selectContact();
         app.getContactHelper().clickEditContact();
-        app.getContactHelper().fillContactData(new ContactData("Evgeniy", "Antolievich", "Kolesnikov", "----", "Title", "Company", "Address", "home", "+79583368827", "good work", "very best fax", "mail", "mail2", "mail3", "http://home.google.com", "adress", "home", "note", new String[]{"12", "3","2001"}, new String[]{"10", "3","2002"}));
+        app.getContactHelper().fillContactData(new ContactData("Evgeniy",
+                "Antolievich",
+                "Kolesnikov",
+                "----",
+                "Title",
+                "Company",
+                "Address",
+                "home",
+                "+79583368827",
+                "good work",
+                "very best fax",
+                "mail",
+                "mail2",
+                "mail3",
+                "http://home.google.com",
+                "adress",
+                "home",
+                "note",
+                new String[]{"12", "3","2001"},
+                new String[]{"10", "3","2002"},
+                null),
+                false);
         app.getContactHelper().clickUpdateContact();
         app.getNavigationHelper().gotoHomePage();
     }

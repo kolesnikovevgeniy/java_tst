@@ -4,6 +4,8 @@ import addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 /**
  * Created by MyK on 28.01.17.
@@ -18,7 +20,7 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
-    public void fillContactData(ContactData contactData) {
+    public void fillContactData(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("middlename"), contactData.getMidlename());
         type(By.name("lastname"), contactData.getLastname());
@@ -40,6 +42,14 @@ public class ContactHelper extends BaseHelper {
         type(By.name("address2"), contactData.getAddress2());
         type(By.name("phone2"), contactData.getPhone2());
         type(By.name("notes"), contactData.getNote());
+
+        if(creation && isElementPresent(By.name("new_group"))) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        }
+        else
+        {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void fillAnniversary(ContactData contactData) {

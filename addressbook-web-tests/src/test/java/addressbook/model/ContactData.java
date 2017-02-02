@@ -21,8 +21,9 @@ public class ContactData {
     private  String note;
     private String[] birthday;
     private String[] anniversary;
+    private String group;
 
-    public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary) {
+    public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
         this.firstname = firstname;
         this.midlename = midlename;
         this.lastname = lastname;
@@ -43,6 +44,12 @@ public class ContactData {
         this.note = note;
         this.birthday = birthday;
         this.anniversary = anniversary;
+        this.group = group;
+    }
+
+    public String getGroup()
+    {
+        return this.group;
     }
 
     public String[] getBirthday() {

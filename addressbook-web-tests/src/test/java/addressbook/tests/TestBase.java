@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeMethod;
  */
 public class TestBase {
 
-    protected ApllicationManager app = new ApllicationManager(BrowserType.IE);
+    protected ApllicationManager app = new ApllicationManager(BrowserType.FIREFOX);
 
     public TestBase()
     {

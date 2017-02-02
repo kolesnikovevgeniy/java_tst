@@ -19,6 +19,10 @@ public class ApllicationManager {
     private WebDriver wd;
     private String browser;
 
+    // настройки таймаутов
+    public static int waitElement = 3;
+    public static int standartTimeout = 60;
+
     public ApllicationManager(String browser){
         this.browser = browser;
     }
@@ -36,7 +40,7 @@ public class ApllicationManager {
             wd = new ChromeDriver();
         }
 
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(ApllicationManager.standartTimeout, TimeUnit.SECONDS);
         contactHelper = new ContactHelper(wd);
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
