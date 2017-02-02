@@ -49,7 +49,7 @@ public class ContactData {
 
     public String getGroup()
     {
-        return this.group;
+        return group;
     }
 
     public String[] getBirthday() {

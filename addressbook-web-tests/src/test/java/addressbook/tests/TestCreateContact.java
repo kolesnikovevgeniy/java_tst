@@ -31,8 +31,8 @@ public class TestCreateContact extends TestBase {
                 "adress",
                 "home",
                 "note",
-                new String[]{"12", "4","2001"},
-                new String[]{"10", "3","2002"},
+                new String[]{"12", "1","2001"},
+                new String[]{"1", "2","2002"},
                 "test8"),
                 true);
 

@@ -57,12 +57,18 @@ public class ContactHelper extends BaseHelper {
         if (contactData.getAnniversary().length < 3)
             return;
 
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[3]//option[" + contactData.getAnniversary()[0] + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[3]//option[" + contactData.getAnniversary()[0] + "]"));
+        if (isElementPresent(By.name("aday")))
+        {
+            new Select(wd.findElement(By.name("aday"))).selectByValue(contactData.getAnniversary()[0]);
         }
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[4]//option[" + contactData.getAnniversary()[1] + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[4]//option[" + contactData.getAnniversary()[1] + "]"));
+
+        if (isElementPresent(By.name("amonth")))
+        {
+            int bMonth = Integer.parseInt(contactData.getAnniversary()[1]);
+            if (bMonth >= 0 && bMonth < 13)
+                new Select(wd.findElement(By.name("amonth"))).selectByIndex(bMonth);
         }
+
         type(By.name("ayear"), contactData.getAnniversary()[2]);
     }
 
@@ -71,12 +77,18 @@ public class ContactHelper extends BaseHelper {
         if (contactData.getBirthday().length < 3)
             return;
 
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[1]//option[" + contactData.getBirthday()[0] + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[1]//option[" + contactData.getBirthday()[0] + "]"));
+        if (isElementPresent(By.name("bday")))
+        {
+            new Select(wd.findElement(By.name("bday"))).selectByValue(contactData.getBirthday()[0]);
         }
-        if (!isSelected(By.xpath("//div[@id='content']/form/select[2]//option[" + contactData.getBirthday()[1] + "]"))) {
-            click(By.xpath("//div[@id='content']/form/select[2]//option[" + contactData.getBirthday()[1] + "]"));
+
+        if (isElementPresent(By.name("bmonth")))
+        {
+            int bMonth = Integer.parseInt(contactData.getBirthday()[1]);
+            if (bMonth >= 0 && bMonth < 13)
+                new Select(wd.findElement(By.name("bmonth"))).selectByIndex(bMonth);
         }
+
         type(By.name("byear"), contactData.getBirthday()[2]);
     }
 

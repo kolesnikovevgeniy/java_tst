@@ -30,8 +30,6 @@ public class TestEditContact extends TestBase{
                 "adress",
                 "home",
                 "note",
-                new String[]{"12", "3","2001"},
-                new String[]{"10", "3","2002"},
                 null),
                 false);
         app.getContactHelper().clickUpdateContact();
