@@ -52,15 +52,20 @@ public class BaseHelper {
     {
         try
         {
-            wd.manage().timeouts().implicitlyWait(ApllicationManager.waitElement, TimeUnit.SECONDS);
+            setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
             wd.findElement(locator);
-            wd.manage().timeouts().implicitlyWait(ApllicationManager.standartTimeout, TimeUnit.SECONDS);
+            setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
         catch (NoSuchElementException e)
         {
             return false;
         }
         return true;
+    }
+
+    protected void setTimeout(int seconds)
+    {
+        wd.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
 
     public boolean isAlertPresent() {

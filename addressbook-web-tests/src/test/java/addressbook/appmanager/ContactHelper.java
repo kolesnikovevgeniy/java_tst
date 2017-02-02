@@ -3,9 +3,12 @@ package addressbook.appmanager;
 import addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import static org.apache.http.client.methods.RequestBuilder.trace;
 
 /**
  * Created by MyK on 28.01.17.
@@ -59,7 +62,16 @@ public class ContactHelper extends BaseHelper {
 
         if (isElementPresent(By.name("aday")))
         {
-            new Select(wd.findElement(By.name("aday"))).selectByValue(contactData.getAnniversary()[0]);
+            try
+            {
+                setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+                new Select(wd.findElement(By.name("aday"))).selectByValue(contactData.getAnniversary()[0]);
+            }
+            catch(NoSuchElementException e)
+            {
+                trace("Element not found.");
+            }
+            setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
 
         if (isElementPresent(By.name("amonth")))
@@ -79,7 +91,16 @@ public class ContactHelper extends BaseHelper {
 
         if (isElementPresent(By.name("bday")))
         {
-            new Select(wd.findElement(By.name("bday"))).selectByValue(contactData.getBirthday()[0]);
+            try
+            {
+                setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+                new Select(wd.findElement(By.name("bday"))).selectByValue(contactData.getBirthday()[0]);
+            }
+            catch(NoSuchElementException e)
+            {
+                trace("Element not found.");
+            }
+            setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
 
         if (isElementPresent(By.name("bmonth")))
