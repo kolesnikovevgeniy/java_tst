@@ -24,7 +24,7 @@ public class ContactHelper extends BaseHelper {
         click(By.name("submit")/*xpath("//div[@id='content']/form/input[21]")*/);
     }
 
-    public void fillContactData(ContactData contactData, boolean creation) {
+    public void fillContactData(ContactData contactData, boolean creation, boolean createGroup) {
         type(By.name("firstname"), contactData.getFirstname());
         type(By.name("middlename"), contactData.getMidlename());
         type(By.name("lastname"), contactData.getLastname());
@@ -53,11 +53,17 @@ public class ContactHelper extends BaseHelper {
             {
                 setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-            }catch (NoSuchElementException e)
-            {
-                // группа не неайдена, выбираем первую попавшуюся
-                new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
-                System.err.print("Warnining! Group \"" + contactData.getGroup() + "\" not found! Please create group.");
+            }catch (NoSuchElementException e) {
+                // группа не найдена, создаем
+                if (createGroup)
+                {
+                    new GroupHelper(wd).createGroup(new GroupData(contactData.getGroup(), "t", "t"));
+                    System.out.print("Group \"" + contactData.getGroup() + "\" is created.");
+                } else // выбираем первую попавшуюся
+                {
+                    new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
+                    System.err.print("Warnining! Group \"" + contactData.getGroup() + "\" not found! Please create group.");
+                }
             }
             setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
@@ -155,9 +161,25 @@ public class ContactHelper extends BaseHelper {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createContact(ContactData contactData, boolean creation) {
+    public void createContact(ContactData contactData, boolean creation, boolean createGroup) {
+
+        if (createGroup)
+        {
+            try
+            {
+                addContactPage();
+                setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            }catch (NoSuchElementException e) {
+                new NavigationHelper(wd).gotoGroups();
+                new GroupHelper(wd).createGroup(new GroupData(contactData.getGroup(), "t", "t"));
+                System.out.print("Group \"" + contactData.getGroup() + "\" is created.");
+
+            }
+            setTimeout(ApllicationManager.STANDART_TIMEOUT);
+        }
         addContactPage();
-        fillContactData(contactData, creation);
+        fillContactData(contactData, creation, createGroup);
         sendContact();
     }
 }

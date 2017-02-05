@@ -32,7 +32,7 @@ public class TestEditContact extends TestBase{
                     "note",
                     new String[]{"12", "1","2001"},
                     new String[]{"1", "2","2002"},
-                    "test8"), true);
+                    "test8"), true, true);
             app.getNavigationHelper().gotoHomePage();
         }
         app.getContactHelper().selectContact();
@@ -58,7 +58,7 @@ public class TestEditContact extends TestBase{
                 new String[]{"15", "5","2001"},
                 new String[]{"16", "6","2002"},
                 null),
-                false);
+                false, false);
         app.getContactHelper().clickUpdateContact();
         app.getNavigationHelper().gotoHomePage();
     }
