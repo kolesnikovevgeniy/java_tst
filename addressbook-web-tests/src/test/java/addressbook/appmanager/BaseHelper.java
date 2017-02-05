@@ -39,9 +39,9 @@ public class BaseHelper {
         return wd.findElement(locator).isSelected();
     }
 
-    protected boolean find(By locator) {
-        return wd.findElement(locator).isSelected();
-    }
+    //protected boolean find(By locator) {
+    //    return wd.findElement(locator).isSelected();
+    //}
 
     protected void acceptAlert()
     {

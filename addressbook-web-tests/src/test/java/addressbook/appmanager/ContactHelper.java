@@ -1,6 +1,7 @@
 package addressbook.appmanager;
 
 import addressbook.model.ContactData;
+import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -20,7 +21,7 @@ public class ContactHelper extends BaseHelper {
         super(wd);
     }
     public void sendContact() {
-        click(By.xpath("//div[@id='content']/form/input[21]"));
+        click(By.name("submit")/*xpath("//div[@id='content']/form/input[21]")*/);
     }
 
     public void fillContactData(ContactData contactData, boolean creation) {
@@ -46,8 +47,19 @@ public class ContactHelper extends BaseHelper {
         type(By.name("phone2"), contactData.getPhone2());
         type(By.name("notes"), contactData.getNote());
 
-        if(creation && isElementPresent(By.name("new_group"))) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        if(creation && isElementPresent(By.name("new_group")))
+        {
+            try
+            {
+                setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            }catch (NoSuchElementException e)
+            {
+                // группа не неайдена, выбираем первую попавшуюся
+                new Select(wd.findElement(By.name("new_group"))).selectByIndex(0);
+                System.err.print("Warnining! Group \"" + contactData.getGroup() + "\" not found! Please create group.");
+            }
+            setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
         else
         {
@@ -69,7 +81,7 @@ public class ContactHelper extends BaseHelper {
             }
             catch(NoSuchElementException e)
             {
-                trace("Element not found.");
+                System.out.print("Element not found.");
             }
             setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
@@ -98,7 +110,7 @@ public class ContactHelper extends BaseHelper {
             }
             catch(NoSuchElementException e)
             {
-                trace("Element not found.");
+                System.out.print("Element not found.");
             }
             setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
@@ -143,7 +155,8 @@ public class ContactHelper extends BaseHelper {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createOrEditContact(ContactData contactData, boolean creation) {
+    public void createContact(ContactData contactData, boolean creation) {
+        addContactPage();
         fillContactData(contactData, creation);
         sendContact();
     }

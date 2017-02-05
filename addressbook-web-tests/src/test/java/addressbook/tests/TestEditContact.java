@@ -12,7 +12,7 @@ public class TestEditContact extends TestBase{
         app.getNavigationHelper().gotoHomePage();
         if (! app.getContactHelper().isThereContact())
         {
-            app.getContactHelper().createOrEditContact(new ContactData("Evgeniy2",
+            app.getContactHelper().createContact(new ContactData("Evgeniy2",
                     "Antolievich2",
                     "Kolesnikov2",
                     "Koles",
@@ -32,7 +32,7 @@ public class TestEditContact extends TestBase{
                     "note",
                     new String[]{"12", "1","2001"},
                     new String[]{"1", "2","2002"},
-                    "test8"), false);
+                    "test8"), true);
             app.getNavigationHelper().gotoHomePage();
         }
         app.getContactHelper().selectContact();

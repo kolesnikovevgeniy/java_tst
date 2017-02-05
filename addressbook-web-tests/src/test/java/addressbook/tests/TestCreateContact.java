@@ -12,8 +12,7 @@ public class TestCreateContact extends TestBase {
 
     @Test
     public void testCreateContact() {
-        app.getContactHelper().addContactPage();
-        app.getContactHelper().createOrEditContact(new ContactData("Evgeniy2",
+        app.getContactHelper().createContact(new ContactData("Evgeniy2",
                 "Antolievich2",
                 "Kolesnikov2",
                 "Koles",
