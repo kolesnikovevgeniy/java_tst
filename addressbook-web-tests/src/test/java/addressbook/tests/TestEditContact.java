@@ -10,6 +10,31 @@ public class TestEditContact extends TestBase{
     @Test
     public void testEditContact() {
         app.getNavigationHelper().gotoHomePage();
+        if (! app.getContactHelper().isThereContact())
+        {
+            app.getContactHelper().createOrEditContact(new ContactData("Evgeniy2",
+                    "Antolievich2",
+                    "Kolesnikov2",
+                    "Koles",
+                    "Title",
+                    "Company",
+                    "Address",
+                    "home",
+                    "mobile num",
+                    "good work",
+                    "very best fax",
+                    "mail",
+                    "mail2",
+                    "mail3",
+                    "url home pahe",
+                    "adress",
+                    "home",
+                    "note",
+                    new String[]{"12", "1","2001"},
+                    new String[]{"1", "2","2002"},
+                    "test8"), false);
+            app.getNavigationHelper().gotoHomePage();
+        }
         app.getContactHelper().selectContact();
         app.getContactHelper().clickEditContact();
         app.getContactHelper().fillContactData(new ContactData("Evgeniy",

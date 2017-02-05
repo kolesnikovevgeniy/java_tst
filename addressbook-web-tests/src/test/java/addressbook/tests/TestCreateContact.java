@@ -13,7 +13,7 @@ public class TestCreateContact extends TestBase {
     @Test
     public void testCreateContact() {
         app.getContactHelper().addContactPage();
-        app.getContactHelper().fillContactData(new ContactData("Evgeniy2",
+        app.getContactHelper().createOrEditContact(new ContactData("Evgeniy2",
                 "Antolievich2",
                 "Kolesnikov2",
                 "Koles",
@@ -33,10 +33,7 @@ public class TestCreateContact extends TestBase {
                 "note",
                 new String[]{"12", "1","2001"},
                 new String[]{"1", "2","2002"},
-                "test8"),
-                true);
-
-        app.getContactHelper().sendContact();
+                "test8"), true);
         app.getNavigationHelper().gotoHomePage();
     }
 }

@@ -138,4 +138,13 @@ public class ContactHelper extends BaseHelper {
     {
         acceptAlert();
     }
+
+    public boolean isThereContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public void createOrEditContact(ContactData contactData, boolean creation) {
+        fillContactData(contactData, creation);
+        sendContact();
+    }
 }
