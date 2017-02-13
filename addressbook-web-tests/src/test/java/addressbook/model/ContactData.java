@@ -22,6 +22,7 @@ public class ContactData {
     private String[] birthday;
     private String[] anniversary;
     private String group;
+    private int id;
 
     public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
         this.firstname = firstname;
@@ -45,6 +46,45 @@ public class ContactData {
         this.birthday = birthday;
         this.anniversary = anniversary;
         this.group = group;
+    }
+
+    public ContactData(int id, String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
+        this.firstname = firstname;
+        this.midlename = midlename;
+        this.lastname = lastname;
+        this.nick = nick;
+        this.title = title;
+        this.company = company;
+        this.adress = adress;
+        this.home = home;
+        this.mobile = mobile;
+        this.work = work;
+        this.fax = fax;
+        this.mail = mail;
+        this.mail2 = mail2;
+        this.mail3 = mail3;
+        this.homepage = homepage;
+        this.address2 = address2;
+        this.phone2 = phone2;
+        this.note = note;
+        this.birthday = birthday;
+        this.anniversary = anniversary;
+        this.group = group;
+        this.id = id;
+    }
+
+    public ContactData(int id, String firstname, String midlename, String lastname) {
+        this.firstname = firstname;
+        this.midlename = midlename;
+        this.lastname = lastname;
+        this.id = id;
+    }
+
+    public ContactData(String firstname, String midlename, String lastname) {
+        this.firstname = firstname;
+        this.midlename = midlename;
+        this.lastname = lastname;
+        this.id = Integer.MAX_VALUE;
     }
 
     public String getGroup()

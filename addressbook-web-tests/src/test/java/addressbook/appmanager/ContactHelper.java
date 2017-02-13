@@ -2,12 +2,12 @@ package addressbook.appmanager;
 
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.apache.http.client.methods.RequestBuilder.trace;
 
@@ -131,7 +131,7 @@ public class ContactHelper extends BaseHelper {
         type(By.name("byear"), contactData.getBirthday()[2]);
     }
 
-    public void addContactPage() {
+    public void goToAddContactPage() {
         click(By.linkText("add new"));
     }
 
@@ -167,7 +167,7 @@ public class ContactHelper extends BaseHelper {
         {
             try
             {
-                addContactPage();
+                goToAddContactPage();
                 setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
             }catch (NoSuchElementException e) {
@@ -178,8 +178,23 @@ public class ContactHelper extends BaseHelper {
             }
             setTimeout(ApllicationManager.STANDART_TIMEOUT);
         }
-        addContactPage();
+        goToAddContactPage();
         fillContactData(contactData, creation, createGroup);
         sendContact();
+    }
+
+    public List<ContactData> getListContacts()
+    {
+        List<ContactData> contactsData = new ArrayList<ContactData>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        for(WebElement e : elements)
+        {
+
+            contactsData.add(new ContactData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")),
+                    e.findElements(By.tagName("td")).get(1).getText(),
+                    e.findElements(By.tagName("td")).get(2).getText(),
+                    e.findElements(By.tagName("td")).get(3).getText()));
+        }
+        return contactsData;
     }
 }

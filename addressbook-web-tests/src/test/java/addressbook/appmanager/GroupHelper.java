@@ -3,6 +3,10 @@ package addressbook.appmanager;
 import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MyK on 28.01.17.
@@ -61,5 +65,16 @@ public class GroupHelper extends BaseHelper{
 
     public boolean isThereGroup() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<GroupData> getListGroup()
+    {
+        List<GroupData> groupsData = new ArrayList<GroupData>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for(WebElement e : elements)
+        {
+            groupsData.add(new GroupData(Integer.parseInt(e.getAttribute("value")), e.getText(), null, null));
+        }
+        return groupsData;
     }
 }
