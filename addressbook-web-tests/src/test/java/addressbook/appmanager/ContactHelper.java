@@ -73,6 +73,11 @@ public class ContactHelper extends BaseHelper {
         }
     }
 
+    public void selectContact(int num)
+    {
+        new Select(wd.findElement(By.name("selected[]"))).selectByIndex(num);
+    }
+
     public void fillAnniversary(ContactData contactData) {
         // проверяем на достаточный размер массив
         if (contactData.getAnniversary().length < 3)

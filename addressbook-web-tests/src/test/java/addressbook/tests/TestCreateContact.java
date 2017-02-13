@@ -6,12 +6,6 @@ import org.testng.annotations.Test;
 import java.util.List;
 
 public class TestCreateContact extends TestBase {
-
-    public TestCreateContact()
-    {
-
-    }
-
     @Test
     public void testCreateContact() {
         app.getNavigationHelper().gotoHomePage();

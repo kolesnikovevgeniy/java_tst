@@ -3,6 +3,8 @@ package addressbook.tests;
 import addressbook.model.ContactData;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 /**
  * Created by MyK on 29.01.17.
  */
@@ -36,9 +38,11 @@ public class TestDeleteContact extends TestBase{
                     "test8"), true, false);
             app.getNavigationHelper().gotoHomePage();
         }
+        List<ContactData> before = app.getContactHelper().getListContacts();
         app.getContactHelper().selectContact();
         app.getContactHelper().deleteSelectedContact();
         app.getContactHelper().acceptDeleteContact();
         app.getNavigationHelper().gotoHomePage();
+        List<ContactData> after = app.getContactHelper().getListContacts();
     }
 }

@@ -4,6 +4,7 @@ import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,11 @@ public class GroupHelper extends BaseHelper{
         fillGroupParams(groupData);
         clickAddGroup();
         returnGroupsPage();
+    }
+
+    public void selectGroup(int num)
+    {
+        new Select(wd.findElement(By.name("selected[]"))).selectByIndex(num);
     }
 
     public boolean isThereGroup() {
