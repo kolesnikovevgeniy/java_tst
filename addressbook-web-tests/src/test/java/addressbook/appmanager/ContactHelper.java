@@ -2,6 +2,7 @@ package addressbook.appmanager;
 
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
+import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -196,9 +197,9 @@ public class ContactHelper extends BaseHelper {
         {
 
             contactsData.add(new ContactData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")),
-                    e.findElements(By.tagName("td")).get(1).getText(),
                     e.findElements(By.tagName("td")).get(2).getText(),
-                    e.findElements(By.tagName("td")).get(3).getText()));
+                    null,
+                    e.findElements(By.tagName("td")).get(1).getText()));
         }
         return contactsData;
     }

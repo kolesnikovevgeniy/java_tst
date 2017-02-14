@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -65,5 +66,8 @@ public class TestEditContact extends TestBase{
         app.getContactHelper().clickUpdateContact();
         app.getNavigationHelper().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getListContacts();
+
+        //проверяем размерность
+        Assert.assertEquals(after.size(), before.size());
     }
 }

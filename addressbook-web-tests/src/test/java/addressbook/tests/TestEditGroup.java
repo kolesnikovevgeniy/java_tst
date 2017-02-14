@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.model.GroupData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -23,5 +24,8 @@ public class TestEditGroup extends TestBase{
         app.getGroupHelper().updateGroup();
         app.getGroupHelper().returnGroupsPage();
         List<GroupData> after = app.getGroupHelper().getListGroup();
+
+        //проверяем размерность
+        Assert.assertEquals(after.size(), before.size());
     }
 }

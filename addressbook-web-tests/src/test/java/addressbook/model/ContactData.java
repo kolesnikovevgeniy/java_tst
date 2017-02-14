@@ -1,5 +1,7 @@
 package addressbook.model;
 
+import java.util.Arrays;
+
 public class ContactData {
     private  String firstname;
     private  String midlename;
@@ -24,6 +26,27 @@ public class ContactData {
     private String group;
     private int id;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        //if (midlename != null ? !midlename.equals(that.midlename) : that.midlename != null) return false;
+        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstname != null ? firstname.hashCode() : 0;
+        result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        return result;
+    }
+
     public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
         this.firstname = firstname;
         this.midlename = midlename;
@@ -46,6 +69,8 @@ public class ContactData {
         this.birthday = birthday;
         this.anniversary = anniversary;
         this.group = group;
+        this.id = Integer.MAX_VALUE;
+
     }
 
     public ContactData(int id, String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
@@ -90,6 +115,34 @@ public class ContactData {
     public String getGroup()
     {
         return group;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "firstname='" + firstname + '\'' +
+                ", midlename='" + midlename + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", nick='" + nick + '\'' +
+                ", title='" + title + '\'' +
+                ", company='" + company + '\'' +
+                ", adress='" + adress + '\'' +
+                ", home='" + home + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", work='" + work + '\'' +
+                ", fax='" + fax + '\'' +
+                ", mail='" + mail + '\'' +
+                ", mail2='" + mail2 + '\'' +
+                ", mail3='" + mail3 + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", phone2='" + phone2 + '\'' +
+                ", note='" + note + '\'' +
+                ", birthday=" + Arrays.toString(birthday) +
+                ", anniversary=" + Arrays.toString(anniversary) +
+                ", group='" + group + '\'' +
+                ", id=" + id +
+                '}';
     }
 
     public String[] getBirthday() {
@@ -170,5 +223,9 @@ public class ContactData {
 
     public String getNote() {
         return note;
+    }
+
+    public int getId() {
+        return id;
     }
 }

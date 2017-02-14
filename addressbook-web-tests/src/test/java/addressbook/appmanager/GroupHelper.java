@@ -79,7 +79,7 @@ public class GroupHelper extends BaseHelper{
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for(WebElement e : elements)
         {
-            groupsData.add(new GroupData(Integer.parseInt(e.getAttribute("value")), e.getText(), null, null));
+            groupsData.add(new GroupData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")), e.getText(), null, null));
         }
         return groupsData;
     }
