@@ -42,7 +42,7 @@ public class ContactData {
     @Override
     public int hashCode() {
         int result = firstname != null ? firstname.hashCode() : 0;
-        result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
+        //result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
     }

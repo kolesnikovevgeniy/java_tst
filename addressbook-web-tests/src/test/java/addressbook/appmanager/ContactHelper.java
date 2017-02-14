@@ -76,7 +76,7 @@ public class ContactHelper extends BaseHelper {
 
     public void selectContact(int num)
     {
-        new Select(wd.findElement(By.name("selected[]"))).selectByIndex(num);
+        wd.findElements(By.name("selected[]")).get(num).click();
     }
 
     public void fillAnniversary(ContactData contactData) {
@@ -145,8 +145,19 @@ public class ContactHelper extends BaseHelper {
         click(By.name("selected[]"));
     }
 
-    public void clickEditContact() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    public void clickEditContact(int id) {
+        //click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+        //List<WebElement> elements = wd.findElements(By.name("entry"));//.get(num);//.findElement(By.xpath("/a/img[1]")).click();;
+        //List<WebElement> elements = wd.findElements(By.xpath("//a[@href='http://localhost/addressbook/edit.php?id=40']"));
+        //for(WebElement e : elements)
+        //{
+       //     System.out.println(e.findElements(By.xpath("td[8]/a")).get(0).getText());
+
+       // }
+            //click(By.xpath("//a[@href='/edit.php?id="+ id +"'][0]"));
+        //wd.findElements(By.name("entry")).get(num).findElement(By.xpath("td[8]/a")).click();
+        //wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[@name='entry']["+num+"]/td[8]/a")).click();
+        wd.findElement(By.xpath("//a[@href='edit.php?id="+id+"']")).click();
     }
 
     public void clickUpdateContact() {

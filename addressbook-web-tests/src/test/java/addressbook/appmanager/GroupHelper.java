@@ -66,7 +66,7 @@ public class GroupHelper extends BaseHelper{
 
     public void selectGroup(int num)
     {
-        new Select(wd.findElement(By.name("selected[]"))).selectByIndex(num);
+        wd.findElements(By.name("selected[]")).get(num).click();
     }
 
     public boolean isThereGroup() {

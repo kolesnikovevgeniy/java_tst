@@ -4,6 +4,7 @@ import addressbook.model.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -39,11 +40,14 @@ public class TestEditContact extends TestBase{
             app.getNavigationHelper().gotoHomePage();
         }
         List<ContactData> before = app.getContactHelper().getListContacts();
-        app.getContactHelper().selectContact();
-        app.getContactHelper().clickEditContact();
-        app.getContactHelper().fillContactData(new ContactData("Evgeniy",
-                "Antolievich",
-                "Kolesnikov",
+        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
+        //
+        //before.sort(byId);
+        //app.getContactHelper().selectContact(before.size() - 1);
+        app.getContactHelper().clickEditContact(before.get(before.size() - 1).getId());
+        ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "Evgeniygg",
+                "Antolievidsfsdfchhh",
+                "Kolesnikosdfsdfvjjj",
                 "----",
                 "Title",
                 "Company",
@@ -52,22 +56,28 @@ public class TestEditContact extends TestBase{
                 "+79583368827",
                 "good work",
                 "very best fax",
-                "mail",
-                "mail2",
-                "mail3",
+                "mail345",
+                "mail552",
+                "mail366",
                 "http://home.google.com",
                 "adress",
                 "home",
                 "note",
                 new String[]{"15", "5","2001"},
                 new String[]{"16", "6","2002"},
-                null),
-                false, false);
+                null);
+        app.getContactHelper().fillContactData(contact, false, false);
         app.getContactHelper().clickUpdateContact();
         app.getNavigationHelper().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getListContacts();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size());
+
+
+        after.sort(byId);
+        //before.sort(byId);
+
+        Assert.assertEquals(contact, after.get(after.size() - 1));
     }
 }

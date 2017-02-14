@@ -4,6 +4,7 @@ import addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -18,14 +19,20 @@ public class TestEditGroup extends TestBase{
             app.getGroupHelper().createGroup(new GroupData("testEdit", "tes54", null));
         }
         List<GroupData> before = app.getGroupHelper().getListGroup();
-        app.getGroupHelper().selectAnyGroup();
+        app.getGroupHelper().selectGroup(before.size() - 1);
         app.getGroupHelper().editGroup();
-        app.getGroupHelper().fillGroupParams(new GroupData("testEdited", null, "test56"));
+        GroupData group = new GroupData(before.get(before.size() - 1).getId(), "testEdited", null, "test56");
+        app.getGroupHelper().fillGroupParams(group);
         app.getGroupHelper().updateGroup();
         app.getGroupHelper().returnGroupsPage();
         List<GroupData> after = app.getGroupHelper().getListGroup();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size());
+
+        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+        after.sort(byId);
+
+        Assert.assertEquals(group, after.get(after.size() - 1));
     }
 }
