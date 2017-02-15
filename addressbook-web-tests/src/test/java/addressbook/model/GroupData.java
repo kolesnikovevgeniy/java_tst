@@ -1,9 +1,9 @@
 package addressbook.model;
 
 public class GroupData {
-    private final String name;
-    private final String header;
-    private final String footer;
+    private String name;
+    private String header;
+    private String footer;
     private int id;
 
     @Override
@@ -42,6 +42,13 @@ public class GroupData {
         this.header = header;
         this.footer = footer;
         this.id = id;
+    }
+
+    public void setData(GroupData data)
+    {
+        this.footer = data.footer;
+        this.header = data.header;
+        this.name = data.name;
     }
 
     public String getName() {

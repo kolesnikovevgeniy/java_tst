@@ -81,7 +81,7 @@ public class ContactHelper extends BaseHelper {
 
     public void fillAnniversary(ContactData contactData) {
         // проверяем на достаточный размер массив
-        if (contactData.getAnniversary().length < 3)
+        if (contactData.getAnniversary() == null || contactData.getAnniversary().length < 3)
             return;
 
         if (isElementPresent(By.name("aday")))
@@ -110,7 +110,7 @@ public class ContactHelper extends BaseHelper {
 
     public void fillBirthday(ContactData contactData) {
         // проверяем на достаточный размер массив
-        if (contactData.getBirthday().length < 3)
+        if (contactData.getBirthday() == null || contactData.getBirthday().length < 3)
             return;
 
         if (isElementPresent(By.name("bday")))
@@ -192,7 +192,9 @@ public class ContactHelper extends BaseHelper {
     public List<ContactData> getListContacts()
     {
         List<ContactData> contactsData = new ArrayList<ContactData>();
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
         List<WebElement> elements = wd.findElements(By.name("entry"));
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
         for(WebElement e : elements)
         {
 

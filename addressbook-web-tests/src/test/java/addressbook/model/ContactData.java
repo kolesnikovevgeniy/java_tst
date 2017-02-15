@@ -98,6 +98,12 @@ public class ContactData {
         this.id = id;
     }
 
+    public void setData(ContactData data) {
+        this.firstname = data.firstname;
+        this.midlename = data.midlename;
+        this.lastname = data.lastname;
+    }
+
     public ContactData(int id, String firstname, String midlename, String lastname) {
         this.firstname = firstname;
         this.midlename = midlename;

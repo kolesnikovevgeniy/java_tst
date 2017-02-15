@@ -4,6 +4,7 @@ import addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -25,6 +26,18 @@ public class TestDeleteGroup extends TestBase{
         List<GroupData> after = app.getGroupHelper().getListGroup();
 
         //проверяем размерность
+        if (after.size() < 1)
+        {
+            return;
+        }
         Assert.assertEquals(after.size() - 1, before.size());
+
+        before.remove(before.size() - 1);
+
+        Comparator<? super GroupData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
+        before.sort(byId);
+        after.sort(byId);
+
+        Assert.assertEquals(after, before);
     }
 }

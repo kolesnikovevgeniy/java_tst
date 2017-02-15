@@ -41,9 +41,7 @@ public class TestEditContact extends TestBase{
         }
         List<ContactData> before = app.getContactHelper().getListContacts();
         Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-        //
-        //before.sort(byId);
-        //app.getContactHelper().selectContact(before.size() - 1);
+
         app.getContactHelper().clickEditContact(before.get(before.size() - 1).getId());
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "Evgeniygg",
                 "Antolievidsfsdfchhh",
@@ -81,5 +79,53 @@ public class TestEditContact extends TestBase{
         before.sort(byId);
 
         Assert.assertEquals(before, after);
+    }
+
+    @Test
+    public void testEditContactById() {
+        app.getNavigationHelper().gotoHomePage();
+        if (! app.getContactHelper().isThereContact())
+        {
+            app.getContactHelper().createContact(new ContactData("Evgeniy2",
+                    "Antolievich2",
+                    "Kolesnikov2",
+                    "Koles",
+                    "Title",
+                    "Company",
+                    "Address",
+                    "home",
+                    "mobile num",
+                    "good work",
+                    "very best fax",
+                    "mail",
+                    "mail2",
+                    "mail3",
+                    "url home pahe",
+                    "adress",
+                    "home",
+                    "note",
+                    new String[]{"12", "1","2001"},
+                    new String[]{"1", "2","2002"},
+                    "test8"), true, true);
+            app.getNavigationHelper().gotoHomePage();
+        }
+        List<ContactData> contacts = app.getContactHelper().getListContacts();
+        int numContact = contacts.size() - 1;
+        app.getContactHelper().clickEditContact(contacts.get(numContact).getId());
+        contacts.get(numContact).setData(new ContactData("Evgeniygg",  null, "Kolesnikosdfsdfvjjj"));
+        app.getContactHelper().fillContactData(contacts.get(numContact), false, false);
+        app.getContactHelper().clickUpdateContact();
+        app.getNavigationHelper().gotoHomePage();
+        List<ContactData> after = app.getContactHelper().getListContacts();
+
+        //проверяем размерность
+        Assert.assertEquals(after.size(), contacts.size());
+
+        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
+        contacts.sort(byId);
+        after.sort(byId);
+
+        // проверяем корректность заполненных данных
+        Assert.assertEquals(contacts, after);
     }
 }

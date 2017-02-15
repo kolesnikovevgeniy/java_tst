@@ -4,6 +4,7 @@ import addressbook.model.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -47,6 +48,18 @@ public class TestDeleteContact extends TestBase{
         List<ContactData> after = app.getContactHelper().getListContacts();
 
         //проверяем размерность
+        if (after.size() < 1)
+        {
+            return;
+        }
         Assert.assertEquals(after.size() - 1, before.size());
+
+        before.remove(before.size() - 1);
+
+        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
+        before.sort(byId);
+        after.sort(byId);
+
+        Assert.assertEquals(after, before);
     }
 }
