@@ -26,11 +26,7 @@ public class TestDeleteGroup extends TestBase{
         List<GroupData> after = app.getGroupHelper().getListGroup();
 
         //проверяем размерность
-        if (after.size() < 1)
-        {
-            return;
-        }
-        Assert.assertEquals(after.size() - 1, before.size());
+        Assert.assertEquals(after.size(), before.size() -1);
 
         before.remove(before.size() - 1);
 

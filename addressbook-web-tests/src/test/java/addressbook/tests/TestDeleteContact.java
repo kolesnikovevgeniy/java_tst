@@ -48,11 +48,7 @@ public class TestDeleteContact extends TestBase{
         List<ContactData> after = app.getContactHelper().getListContacts();
 
         //проверяем размерность
-        if (after.size() < 1)
-        {
-            return;
-        }
-        Assert.assertEquals(after.size() - 1, before.size());
+        Assert.assertEquals(after.size(), before.size() - 1);
 
         before.remove(before.size() - 1);
 
