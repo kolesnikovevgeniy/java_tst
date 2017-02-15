@@ -31,8 +31,13 @@ public class TestEditGroup extends TestBase{
         Assert.assertEquals(after.size(), before.size());
 
         Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        after.sort(byId);
 
-        Assert.assertEquals(group, after.get(after.size() - 1));
+        before.remove(before.size() - 1);
+        before.add(group);
+
+        after.sort(byId);
+        before.sort(byId);
+
+        Assert.assertEquals(before, after);
     }
 }

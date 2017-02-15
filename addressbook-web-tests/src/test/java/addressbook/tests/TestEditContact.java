@@ -74,10 +74,12 @@ public class TestEditContact extends TestBase{
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size());
 
+        before.remove(before.size() - 1);
+        before.add(contact);
 
         after.sort(byId);
-        //before.sort(byId);
+        before.sort(byId);
 
-        Assert.assertEquals(contact, after.get(after.size() - 1));
+        Assert.assertEquals(before, after);
     }
 }
