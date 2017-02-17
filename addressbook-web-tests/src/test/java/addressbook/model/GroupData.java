@@ -1,10 +1,24 @@
 package addressbook.model;
 
+import java.util.List;
+
 public class GroupData {
     private String name;
     private String header;
     private String footer;
     private int id;
+
+    public static int getIndexById(List<GroupData> lGD, int id)
+    {
+        for(int i = 0; i < lGD.size(); i++)
+        {
+            if(lGD.get(i).getId() == id)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
 
     @Override
     public boolean equals(Object o) {

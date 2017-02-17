@@ -2,6 +2,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import org.testng.Assert;
+import org.testng.TestException;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -13,7 +14,7 @@ import java.util.List;
 public class TestDeleteContact extends TestBase{
 
     @Test
-    public void testDeleteGroup() {
+    public void testDeleteContact() {
         app.getNavigationHelper().gotoHomePage();
         if (!app.getContactHelper().isThereContact())
         {
@@ -41,7 +42,8 @@ public class TestDeleteContact extends TestBase{
             app.getNavigationHelper().gotoHomePage();
         }
         List<ContactData> before = app.getContactHelper().getListContacts();
-        app.getContactHelper().selectContact();
+        int idToDelete = before.get(before.size()-1).getId();
+        app.getContactHelper().selectContactById(idToDelete);
         app.getContactHelper().deleteSelectedContact();
         app.getContactHelper().acceptDeleteContact();
         app.getNavigationHelper().gotoHomePage();
@@ -50,8 +52,11 @@ public class TestDeleteContact extends TestBase{
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size() - 1);
 
-        before.remove(before.size() - 1);
-
+        try {
+            before.remove(ContactData.getIndexById(before, idToDelete));
+        }catch(IndexOutOfBoundsException ioobe) {
+            throw new TestException("Идентификатор ("+ idToDelete +") в списке контактов не найден.");
+        }
         Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
         before.sort(byId);
         after.sort(byId);

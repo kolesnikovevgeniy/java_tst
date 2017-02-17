@@ -1,6 +1,7 @@
 package addressbook.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class ContactData {
     private  String firstname;
@@ -26,25 +27,16 @@ public class ContactData {
     private String group;
     private int id;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        //if (midlename != null ? !midlename.equals(that.midlename) : that.midlename != null) return false;
-        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = firstname != null ? firstname.hashCode() : 0;
-        //result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        return result;
+    public static int getIndexById(List<ContactData> lCD, int id)
+    {
+        for(int i = 0; i < lCD.size(); i++)
+        {
+            if(lCD.get(i).getId() == id)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
@@ -233,5 +225,26 @@ public class ContactData {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        //if (midlename != null ? !midlename.equals(that.midlename) : that.midlename != null) return false;
+        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstname != null ? firstname.hashCode() : 0;
+        //result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        return result;
     }
 }

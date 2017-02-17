@@ -68,6 +68,10 @@ public class GroupHelper extends BaseHelper{
     {
         wd.findElements(By.name("selected[]")).get(num).click();
     }
+    public void selectGroupById(int id)
+    {
+        wd.findElement(By.xpath("//input[@value='"+id+"']")).click();
+    }
 
     public boolean isThereGroup() {
         return isElementPresent(By.name("selected[]"));

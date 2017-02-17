@@ -145,6 +145,10 @@ public class ContactHelper extends BaseHelper {
         click(By.name("selected[]"));
     }
 
+    public void selectContactById(int id) {
+        wd.findElement(By.id(Integer.toString(id))).click();
+    }
+
     public void clickEditContact(int id) {
         wd.findElement(By.xpath("//a[@href='edit.php?id="+id+"']")).click();
     }
