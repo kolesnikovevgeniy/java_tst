@@ -11,6 +11,7 @@ import java.util.List;
  * Created by MyK on 28.01.17.
  */
 public class TestEditGroup extends TestBase{
+
     @Test
     public void testEditGroup() {
         app.getNavigationHelper().gotoGroups();
@@ -19,10 +20,11 @@ public class TestEditGroup extends TestBase{
             app.getGroupHelper().createGroup(new GroupData("testEdit", "tes54", null));
         }
         List<GroupData> before = app.getGroupHelper().getListGroup();
-        app.getGroupHelper().selectGroup(before.size() - 1);
+        int idGroup = before.get(before.size() - 1).getId();
+        app.getGroupHelper().selectGroupById(idGroup);
         app.getGroupHelper().editGroup();
-        GroupData group = new GroupData(before.get(before.size() - 1).getId(), "testEdited", null, "test56");
-        app.getGroupHelper().fillGroupParams(group);
+        before.get(before.size() - 1).setData(new GroupData(idGroup, "testEdited", null, "test56"));
+        app.getGroupHelper().fillGroupParams(before.get(before.size() - 1));
         app.getGroupHelper().updateGroup();
         app.getGroupHelper().returnGroupsPage();
         List<GroupData> after = app.getGroupHelper().getListGroup();
@@ -31,9 +33,6 @@ public class TestEditGroup extends TestBase{
         Assert.assertEquals(after.size(), before.size());
 
         Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-
-        before.remove(before.size() - 1);
-        before.add(group);
 
         after.sort(byId);
         before.sort(byId);

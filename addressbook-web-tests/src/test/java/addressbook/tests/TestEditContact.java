@@ -110,10 +110,12 @@ public class TestEditContact extends TestBase{
             app.getNavigationHelper().gotoHomePage();
         }
         List<ContactData> contacts = app.getContactHelper().getListContacts();
-        int numContact = contacts.size() - 1;
-        app.getContactHelper().clickEditContact(contacts.get(numContact).getId());
-        contacts.get(numContact).setData(new ContactData("Evgeniygg",  null, "Kolesnikosdfsdfvjjj"));
-        app.getContactHelper().fillContactData(contacts.get(numContact), false, false);
+
+        int idToEdit = contacts.get(contacts.size()-1).getId();
+        app.getContactHelper().clickEditContact(idToEdit);
+        int indexContact = ContactData.getIndexById(contacts, idToEdit);
+        contacts.get(indexContact).setData(new ContactData("Evgeniygg",  null, "Kolesnikosdfsdfvjjj"));
+        app.getContactHelper().fillContactData(contacts.get(indexContact), false, false);
         app.getContactHelper().clickUpdateContact();
         app.getNavigationHelper().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getListContacts();
