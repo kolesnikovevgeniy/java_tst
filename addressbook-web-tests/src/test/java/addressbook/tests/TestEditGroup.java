@@ -12,34 +12,6 @@ import java.util.List;
  */
 public class TestEditGroup extends TestBase{
 
-    @Test
-    public void testEditGroup() {
-        app.getNavigationHelper().gotoGroups();
-        if (!app.getGroupHelper().isThereGroup())
-        {
-            app.getGroupHelper().createGroup(new GroupData("testEdit", "tes54", null));
-        }
-        List<GroupData> before = app.getGroupHelper().getListGroup();
-        int idGroup = before.get(before.size() - 1).getId();
-        app.getGroupHelper().selectGroupById(idGroup);
-        app.getGroupHelper().editGroup();
-        before.get(before.size() - 1).setData(new GroupData(idGroup, "testEdited", null, "test56"));
-        app.getGroupHelper().fillGroupParams(before.get(before.size() - 1));
-        app.getGroupHelper().updateGroup();
-        app.getGroupHelper().returnGroupsPage();
-        List<GroupData> after = app.getGroupHelper().getListGroup();
-
-        //проверяем размерность
-        Assert.assertEquals(after.size(), before.size());
-
-        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-
-        after.sort(byId);
-        before.sort(byId);
-
-        Assert.assertEquals(before, after);
-    }
-
     // так как мы знаем id, то можем просто модифицировать список на нужные значения
     @Test
     public void testEditGroupByID() {
@@ -51,14 +23,7 @@ public class TestEditGroup extends TestBase{
 
         List<GroupData> groups = app.getGroupHelper().getListGroup();
         // так как парядковый номер не меняется, избегаем дублирования за счет создания переменной
-        int numGroup = groups.size() - 1;
-
-        app.getGroupHelper().selectGroup(numGroup);
-        app.getGroupHelper().editGroup();
-        groups.get(numGroup).setData(new GroupData("testEdited", null, "test56"));
-        app.getGroupHelper().fillGroupParams(groups.get(numGroup));
-        app.getGroupHelper().updateGroup();
-        app.getGroupHelper().returnGroupsPage();
+        app.getGroupHelper().editGroupById(groups, new GroupData("testEdited", null, "test56"), groups.get(groups.size() - 1).getId());
         List<GroupData> after = app.getGroupHelper().getListGroup();
 
         //проверяем размерность

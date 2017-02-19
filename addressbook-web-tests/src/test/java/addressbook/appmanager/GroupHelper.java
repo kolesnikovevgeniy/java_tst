@@ -43,7 +43,7 @@ public class GroupHelper extends BaseHelper{
         click(By.name("selected[]"));
     }
 
-    public void editGroup()
+    public void clickEditGroup()
     {
         click(By.name("edit"));
     }
@@ -88,5 +88,21 @@ public class GroupHelper extends BaseHelper{
             groupsData.add(new GroupData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")), e.getText(), null, null));
         }
         return groupsData;
+    }
+
+    public void deleteGroup(int idToDelete) {
+        selectGroupById(idToDelete);
+        deleteSelectedGroup();
+        returnGroupsPage();
+    }
+
+    public void editGroupById(List<GroupData> groups, GroupData group, int idToEdit) {
+        selectGroupById(idToEdit);
+        clickEditGroup();
+        groups.get(GroupData.getIndexById(groups, idToEdit)).setData(group);
+        fillGroupParams(group);
+        updateGroup();
+        returnGroupsPage();
+
     }
 }

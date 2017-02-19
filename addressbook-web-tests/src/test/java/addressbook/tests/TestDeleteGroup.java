@@ -25,9 +25,7 @@ public class TestDeleteGroup extends TestBase{
         }
         List<GroupData> before = app.getGroupHelper().getListGroup();
         int idToDelete = before.get(before.size()-1).getId();
-        app.getGroupHelper().selectGroupById(idToDelete);
-        app.getGroupHelper().deleteSelectedGroup();
-        app.getGroupHelper().returnGroupsPage();
+        app.getGroupHelper().deleteGroup(idToDelete);
         List<GroupData> after = app.getGroupHelper().getListGroup();
 
         //проверяем размерность

@@ -209,4 +209,17 @@ public class ContactHelper extends BaseHelper {
         }
         return contactsData;
     }
+
+    public void deleteContact(int idToDelete) {
+        selectContactById(idToDelete);
+        deleteSelectedContact();
+        acceptDeleteContact();
+    }
+
+    public void editContact(List<ContactData> contacts, int idToEdit,ContactData contact, boolean creation, boolean createGroup) {
+        clickEditContact(idToEdit);
+        contacts.get(ContactData.getIndexById(contacts, idToEdit)).setData(new ContactData("Evgeniygg",  null, "Kolesnikosdfsdfvjjj"));
+        fillContactData(contact, creation, createGroup);
+        clickUpdateContact();
+    }
 }

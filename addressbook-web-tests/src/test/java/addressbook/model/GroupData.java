@@ -1,5 +1,7 @@
 package addressbook.model;
 
+import org.testng.annotations.Test;
+
 import java.util.List;
 
 public class GroupData {
@@ -18,6 +20,53 @@ public class GroupData {
             }
         }
         return -1;
+    }
+
+    public GroupData(String name, String header, String footer) {
+        this.name = name;
+        this.header = header;
+        this.footer = footer;
+        this.id = Integer.MAX_VALUE;
+    }
+
+    public GroupData(int id, String name, String header, String footer) {
+        this.name = name;
+        this.header = header;
+        this.footer = footer;
+        this.id = id;
+    }
+
+    public void setData(GroupData data)
+    {
+        // считаем, что если null, то модифицировать не требуется
+        if (data.footer != null)
+            this.footer = data.footer;
+
+        if (data.header != null)
+            this.header = data.header;
+
+        if (data.name != null)
+            this.name = data.name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public String getFooter() {
+        return footer;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -42,46 +91,5 @@ public class GroupData {
                 "name='" + name + '\'' +
                 ", id=" + id +
                 '}';
-    }
-
-    public GroupData(String name, String header, String footer) {
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-        this.id = Integer.MAX_VALUE;
-    }
-
-    public GroupData(int id, String name, String header, String footer) {
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-        this.id = id;
-    }
-
-    public void setData(GroupData data)
-    {
-        this.footer = data.footer;
-        this.header = data.header;
-        this.name = data.name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getHeader() {
-        return header;
-    }
-
-    public String getFooter() {
-        return footer;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }

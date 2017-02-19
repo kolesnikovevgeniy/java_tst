@@ -43,9 +43,8 @@ public class TestDeleteContact extends TestBase{
         }
         List<ContactData> before = app.getContactHelper().getListContacts();
         int idToDelete = before.get(before.size()-1).getId();
-        app.getContactHelper().selectContactById(idToDelete);
-        app.getContactHelper().deleteSelectedContact();
-        app.getContactHelper().acceptDeleteContact();
+        app.getContactHelper().deleteContact(idToDelete);
+
         app.getNavigationHelper().gotoHomePage();
         List<ContactData> after = app.getContactHelper().getListContacts();
 

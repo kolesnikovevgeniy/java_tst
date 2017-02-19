@@ -91,9 +91,14 @@ public class ContactData {
     }
 
     public void setData(ContactData data) {
-        this.firstname = data.firstname;
-        this.midlename = data.midlename;
-        this.lastname = data.lastname;
+        if(data.firstname != null)
+            this.firstname = data.firstname;
+
+        if (data.midlename != null)
+            this.midlename = data.midlename;
+
+        if (data.lastname != null)
+            this.lastname = data.lastname;
     }
 
     public ContactData(int id, String firstname, String midlename, String lastname) {
@@ -113,34 +118,6 @@ public class ContactData {
     public String getGroup()
     {
         return group;
-    }
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "firstname='" + firstname + '\'' +
-                ", midlename='" + midlename + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", nick='" + nick + '\'' +
-                ", title='" + title + '\'' +
-                ", company='" + company + '\'' +
-                ", adress='" + adress + '\'' +
-                ", home='" + home + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", work='" + work + '\'' +
-                ", fax='" + fax + '\'' +
-                ", mail='" + mail + '\'' +
-                ", mail2='" + mail2 + '\'' +
-                ", mail3='" + mail3 + '\'' +
-                ", homepage='" + homepage + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", phone2='" + phone2 + '\'' +
-                ", note='" + note + '\'' +
-                ", birthday=" + Arrays.toString(birthday) +
-                ", anniversary=" + Arrays.toString(anniversary) +
-                ", group='" + group + '\'' +
-                ", id=" + id +
-                '}';
     }
 
     public String[] getBirthday() {
@@ -246,5 +223,33 @@ public class ContactData {
         //result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
         result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "firstname='" + firstname + '\'' +
+                ", midlename='" + midlename + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", nick='" + nick + '\'' +
+                ", title='" + title + '\'' +
+                ", company='" + company + '\'' +
+                ", adress='" + adress + '\'' +
+                ", home='" + home + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", work='" + work + '\'' +
+                ", fax='" + fax + '\'' +
+                ", mail='" + mail + '\'' +
+                ", mail2='" + mail2 + '\'' +
+                ", mail3='" + mail3 + '\'' +
+                ", homepage='" + homepage + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", phone2='" + phone2 + '\'' +
+                ", note='" + note + '\'' +
+                ", birthday=" + Arrays.toString(birthday) +
+                ", anniversary=" + Arrays.toString(anniversary) +
+                ", group='" + group + '\'' +
+                ", id=" + id +
+                '}';
     }
 }
