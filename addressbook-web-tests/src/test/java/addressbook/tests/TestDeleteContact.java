@@ -15,10 +15,10 @@ public class TestDeleteContact extends TestBase{
 
     @Test
     public void testDeleteContact() {
-        app.getNavigationHelper().gotoHomePage();
-        if (!app.getContactHelper().isThereContact())
+        app.goTo().homePage();
+        if (app.contacts().list().size() == 0)
         {
-            app.getContactHelper().createContact(new ContactData("Evgeniy2",
+            app.contacts().create(new ContactData("Evgeniy2",
                     "Antolievich2",
                     "Kolesnikov2",
                     "Koles",
@@ -39,14 +39,14 @@ public class TestDeleteContact extends TestBase{
                     new String[]{"12", "1","2001"},
                     new String[]{"1", "2","2002"},
                     "test8"), true, false);
-            app.getNavigationHelper().gotoHomePage();
+            app.goTo().homePage();
         }
-        List<ContactData> before = app.getContactHelper().getListContacts();
+        List<ContactData> before = app.contacts().list();
         int idToDelete = before.get(before.size()-1).getId();
-        app.getContactHelper().deleteContact(idToDelete);
+        app.contacts().delete(idToDelete);
 
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getListContacts();
+        app.goTo().homePage();
+        List<ContactData> after = app.contacts().list();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size() - 1);

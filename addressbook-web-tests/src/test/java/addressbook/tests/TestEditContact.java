@@ -14,10 +14,10 @@ public class TestEditContact extends TestBase{
 
     @Test
     public void testEditContactById() {
-        app.getNavigationHelper().gotoHomePage();
-        if (! app.getContactHelper().isThereContact())
+        app.goTo().homePage();
+        if (app.contacts().list().size() == 0)
         {
-            app.getContactHelper().createContact(new ContactData("Evgeniy2",
+            app.contacts().create(new ContactData("Evgeniy2",
                     "Antolievich2",
                     "Kolesnikov2",
                     "Koles",
@@ -38,13 +38,13 @@ public class TestEditContact extends TestBase{
                     new String[]{"12", "1","2001"},
                     new String[]{"1", "2","2002"},
                     "test8"), true, true);
-            app.getNavigationHelper().gotoHomePage();
+            app.goTo().homePage();
         }
-        List<ContactData> contacts = app.getContactHelper().getListContacts();
+        List<ContactData> contacts = app.contacts().list();
         ContactData cd = contacts.get(contacts.size()-1);
-        app.getContactHelper().editContact(contacts, cd.getId(), cd, false, false);
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getListContacts();
+        app.contacts().edit(contacts, cd.getId(), cd, false, false);
+        app.goTo().homePage();
+        List<ContactData> after = app.contacts().list();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), contacts.size());

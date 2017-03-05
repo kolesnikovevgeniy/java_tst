@@ -57,7 +57,7 @@ public class GroupHelper extends BaseHelper{
         click(By.name("delete"));
     }
 
-    public void createGroup(GroupData groupData) {
+    public void create(GroupData groupData) {
         clickCreateNewGroup();
         fillGroupParams(groupData);
         clickAddGroup();
@@ -77,7 +77,7 @@ public class GroupHelper extends BaseHelper{
         return isElementPresent(By.name("selected[]"));
     }
 
-    public List<GroupData> getListGroup()
+    public List<GroupData> list()
     {
         List<GroupData> groupsData = new ArrayList<GroupData>();
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
@@ -90,13 +90,13 @@ public class GroupHelper extends BaseHelper{
         return groupsData;
     }
 
-    public void deleteGroup(int idToDelete) {
+    public void delete(int idToDelete) {
         selectGroupById(idToDelete);
         deleteSelectedGroup();
         returnGroupsPage();
     }
 
-    public void editGroupById(List<GroupData> groups, GroupData group, int idToEdit) {
+    public void edit(List<GroupData> groups, GroupData group, int idToEdit) {
         selectGroupById(idToEdit);
         clickEditGroup();
         groups.get(GroupData.getIndexById(groups, idToEdit)).setData(group);

@@ -15,16 +15,16 @@ public class TestEditGroup extends TestBase{
     // так как мы знаем id, то можем просто модифицировать список на нужные значения
     @Test
     public void testEditGroupByID() {
-        app.getNavigationHelper().gotoGroups();
-        if (!app.getGroupHelper().isThereGroup())
+        app.goTo().groups();
+        if (app.groups().list().size() == 0)
         {
-            app.getGroupHelper().createGroup(new GroupData("testEdit", "tes54", null));
+            app.groups().create(new GroupData("testEdit", "tes54", null));
         }
 
-        List<GroupData> groups = app.getGroupHelper().getListGroup();
+        List<GroupData> groups = app.groups().list();
         // так как парядковый номер не меняется, избегаем дублирования за счет создания переменной
-        app.getGroupHelper().editGroupById(groups, new GroupData("testEdited", null, "test56"), groups.get(groups.size() - 1).getId());
-        List<GroupData> after = app.getGroupHelper().getListGroup();
+        app.groups().edit(groups, new GroupData("testEdited", null, "test56"), groups.get(groups.size() - 1).getId());
+        List<GroupData> after = app.groups().list();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), groups.size());

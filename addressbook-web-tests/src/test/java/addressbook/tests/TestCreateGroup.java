@@ -10,12 +10,12 @@ import java.util.List;
 public class TestCreateGroup extends TestBase {
     @Test
     public void testCreateGroup() {
-        app.getNavigationHelper().gotoGroups();
-        List<GroupData> before = app.getGroupHelper().getListGroup();
+        app.goTo().groups();
+        List<GroupData> before = app.groups().list();
         GroupData group = new GroupData("tes5", "tes54", null);
-        app.getGroupHelper().createGroup(group);
-        app.getNavigationHelper().gotoGroups();
-        List<GroupData> after = app.getGroupHelper().getListGroup();
+        app.groups().create(group);
+        app.goTo().groups();
+        List<GroupData> after = app.groups().list();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size() + 1);

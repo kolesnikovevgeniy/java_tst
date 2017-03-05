@@ -10,8 +10,8 @@ import java.util.List;
 public class TestCreateContact extends TestBase {
     @Test
     public void testCreateContact() {
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> before = app.getContactHelper().getListContacts();
+        app.goTo().homePage();
+        List<ContactData> before = app.contacts().list();
         ContactData contact = new ContactData("Evgeniy2",
                 "Antolievich2",
                 "Kolesnikov2",
@@ -34,10 +34,10 @@ public class TestCreateContact extends TestBase {
                 new String[]{"1", "2","2002"},
                 "test8");
 
-        app.getContactHelper().createContact(contact, true, false);
+        app.contacts().create(contact, true, false);
 
-        app.getNavigationHelper().gotoHomePage();
-        List<ContactData> after = app.getContactHelper().getListContacts();
+        app.goTo().homePage();
+        List<ContactData> after = app.contacts().list();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size() + 1);

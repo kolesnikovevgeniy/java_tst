@@ -54,15 +54,15 @@ public class ApllicationManager {
         wd.quit();
     }
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper contacts() {
         return contactHelper;
     }
 
-    public GroupHelper getGroupHelper() {
+    public GroupHelper groups() {
         return groupHelper;
     }
 
-    public NavigationHelper getNavigationHelper() {
+    public NavigationHelper goTo() {
         return navigationHelper;
     }
 }

@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.TestException;
 import org.testng.annotations.Test;
 
-import java.security.acl.Group;
 import java.util.Comparator;
 import java.util.List;
 
@@ -18,15 +17,15 @@ public class TestDeleteGroup extends TestBase{
 
     @Test
     public void testDeleteGroup() {
-        app.getNavigationHelper().gotoGroups();
-        if (!app.getGroupHelper().isThereGroup())
+        app.goTo().groups();
+        if (app.groups().list().size() == 0)
         {
-            app.getGroupHelper().createGroup(new GroupData("testDelete", "tes54", null));
+            app.groups().create(new GroupData("testDelete", "tes54", null));
         }
-        List<GroupData> before = app.getGroupHelper().getListGroup();
+        List<GroupData> before = app.groups().list();
         int idToDelete = before.get(before.size()-1).getId();
-        app.getGroupHelper().deleteGroup(idToDelete);
-        List<GroupData> after = app.getGroupHelper().getListGroup();
+        app.groups().delete(idToDelete);
+        List<GroupData> after = app.groups().list();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size() -1);

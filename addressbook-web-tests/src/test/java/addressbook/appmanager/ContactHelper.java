@@ -2,7 +2,6 @@ package addressbook.appmanager;
 
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
-import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -58,7 +57,7 @@ public class ContactHelper extends BaseHelper {
                 // группа не найдена, создаем
                 if (createGroup)
                 {
-                    new GroupHelper(wd).createGroup(new GroupData(contactData.getGroup(), "t", "t"));
+                    new GroupHelper(wd).create(new GroupData(contactData.getGroup(), "t", "t"));
                     System.out.print("Group \"" + contactData.getGroup() + "\" is created.");
                 } else // выбираем первую попавшуюся
                 {
@@ -171,7 +170,7 @@ public class ContactHelper extends BaseHelper {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public void createContact(ContactData contactData, boolean creation, boolean createGroup) {
+    public void create(ContactData contactData, boolean creation, boolean createGroup) {
 
         if (createGroup)
         {
@@ -181,8 +180,8 @@ public class ContactHelper extends BaseHelper {
                 setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
             }catch (NoSuchElementException e) {
-                new NavigationHelper(wd).gotoGroups();
-                new GroupHelper(wd).createGroup(new GroupData(contactData.getGroup(), "t", "t"));
+                new NavigationHelper(wd).groups();
+                new GroupHelper(wd).create(new GroupData(contactData.getGroup(), "t", "t"));
                 System.out.print("Group \"" + contactData.getGroup() + "\" is created.");
 
             }
@@ -193,7 +192,7 @@ public class ContactHelper extends BaseHelper {
         sendContact();
     }
 
-    public List<ContactData> getListContacts()
+    public List<ContactData> list()
     {
         List<ContactData> contactsData = new ArrayList<ContactData>();
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
@@ -210,13 +209,13 @@ public class ContactHelper extends BaseHelper {
         return contactsData;
     }
 
-    public void deleteContact(int idToDelete) {
+    public void delete(int idToDelete) {
         selectContactById(idToDelete);
         deleteSelectedContact();
         acceptDeleteContact();
     }
 
-    public void editContact(List<ContactData> contacts, int idToEdit,ContactData contact, boolean creation, boolean createGroup) {
+    public void edit(List<ContactData> contacts, int idToEdit, ContactData contact, boolean creation, boolean createGroup) {
         clickEditContact(idToEdit);
         contacts.get(ContactData.getIndexById(contacts, idToEdit)).setData(new ContactData("Evgeniygg",  null, "Kolesnikosdfsdfvjjj"));
         fillContactData(contact, creation, createGroup);
