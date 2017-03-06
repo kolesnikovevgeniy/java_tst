@@ -1,6 +1,9 @@
 package addressbook.tests;
 
 import addressbook.model.GroupData;
+import addressbook.model.Groups;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -8,26 +11,24 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class TestCreateGroup extends TestBase {
     @Test
     public void testCreateGroup() {
         app.goTo().groups();
-        Set<GroupData> before = app.groups().all();
+        Groups before = app.groups().all();
         GroupData group = new GroupData().withName("test1").withHeader("testheader").withFooter("blabla");
         app.groups().create(group);
         app.goTo().groups();
-        Set<GroupData> after = app.groups().all();
+        Groups after = app.groups().all();
 
         //проверяем размерность
-        Assert.assertEquals(after.size(), before.size() + 1);
+        assertThat(after.size(), equalTo(before.size() - 1));
 
-        group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
-        before.add(group);
-        //Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        //after.sort(byId);
-        //before.sort(byId);
-
-        Assert.assertEquals(after, before);
+        //проверяем идентификаторы
+        assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
 }

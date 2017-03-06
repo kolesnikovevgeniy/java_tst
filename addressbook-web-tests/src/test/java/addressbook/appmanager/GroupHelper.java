@@ -1,6 +1,7 @@
 package addressbook.appmanager;
 
 import addressbook.model.GroupData;
+import addressbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -89,9 +90,9 @@ public class GroupHelper extends BaseHelper{
         return groupsData;
     }
 
-    public Set<GroupData> all()
+    public Groups all()
     {
-        Set<GroupData> groupsData = new HashSet<GroupData>();
+        Groups groupsData = new Groups();
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         setTimeout(ApllicationManager.STANDART_TIMEOUT);
