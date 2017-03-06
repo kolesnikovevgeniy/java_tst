@@ -3,11 +3,11 @@ package addressbook.appmanager;
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
 import org.openqa.selenium.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.apache.http.client.methods.RequestBuilder.trace;
 
@@ -209,15 +209,39 @@ public class ContactHelper extends BaseHelper {
         return contactsData;
     }
 
+    public Set<ContactData> all()
+    {
+        Set<ContactData> contactsData = new HashSet<ContactData>();
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+        for(WebElement e : elements)
+        {
+
+            contactsData.add(new ContactData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")),
+                    e.findElements(By.tagName("td")).get(2).getText(),
+                    null,
+                    e.findElements(By.tagName("td")).get(1).getText()));
+        }
+        return contactsData;
+    }
+
     public void delete(int idToDelete) {
         selectContactById(idToDelete);
         deleteSelectedContact();
         acceptDeleteContact();
     }
 
-    public void edit(List<ContactData> contacts, int idToEdit, ContactData contact, boolean creation, boolean createGroup) {
+    public void edit(Set<ContactData> contacts, ContactData contact, int idToEdit, boolean creation, boolean createGroup) {
         clickEditContact(idToEdit);
-        contacts.get(ContactData.getIndexById(contacts, idToEdit)).setData(new ContactData("Evgeniygg",  null, "Kolesnikosdfsdfvjjj"));
+
+        for (Iterator<ContactData> it = contacts.iterator(); it.hasNext(); ) {
+            ContactData c = it.next();
+            if (c.equals(new GroupData().withId(idToEdit))) {
+                c.setData(contact);
+            }
+        }
+
         fillContactData(contact, creation, createGroup);
         clickUpdateContact();
     }

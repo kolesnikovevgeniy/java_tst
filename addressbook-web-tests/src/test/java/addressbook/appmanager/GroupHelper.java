@@ -6,8 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by MyK on 28.01.17.
@@ -90,16 +89,35 @@ public class GroupHelper extends BaseHelper{
         return groupsData;
     }
 
+    public Set<GroupData> all()
+    {
+        Set<GroupData> groupsData = new HashSet<GroupData>();
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+        for(WebElement e : elements)
+        {
+            groupsData.add(new GroupData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")), e.getText(), null, null));
+        }
+        return groupsData;
+    }
+
     public void delete(int idToDelete) {
         selectGroupById(idToDelete);
         deleteSelectedGroup();
         returnGroupsPage();
     }
 
-    public void edit(List<GroupData> groups, GroupData group, int idToEdit) {
+    public void edit(Set<GroupData> groups, GroupData group, int idToEdit) {
         selectGroupById(idToEdit);
         clickEditGroup();
-        groups.get(GroupData.getIndexById(groups, idToEdit)).setData(group);
+        for (Iterator<GroupData> it = groups.iterator(); it.hasNext(); ) {
+            GroupData g = it.next();
+            if (g.equals(new GroupData().withId(idToEdit))) {
+                g.setData(group);
+            }
+        }
+        //groups.get(GroupData.getIndexById(groups, idToEdit)).setData(group);
         fillGroupParams(group);
         updateGroup();
         returnGroupsPage();

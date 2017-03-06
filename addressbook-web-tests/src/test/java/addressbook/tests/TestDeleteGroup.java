@@ -3,43 +3,39 @@ package addressbook.tests;
 import addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.TestException;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by MyK on 29.01.17.
  */
 public class TestDeleteGroup extends TestBase{
 
-
+    @BeforeMethod
+    public void before() {
+        app.goTo().groups();
+        if (app.groups().all().size() == 0)
+        {
+            app.groups().create( new GroupData().withName("test1").withHeader("testheader").withFooter("blabla"));
+        }
+    }
 
     @Test
     public void testDeleteGroup() {
-        app.goTo().groups();
-        if (app.groups().list().size() == 0)
-        {
-            app.groups().create(new GroupData("testDelete", "tes54", null));
-        }
-        List<GroupData> before = app.groups().list();
-        int idToDelete = before.get(before.size()-1).getId();
-        app.groups().delete(idToDelete);
-        List<GroupData> after = app.groups().list();
+
+        Set<GroupData> before = app.groups().all();
+        GroupData deletedGroup = before.iterator().next();
+        //int idToDelete = before.get(before.size()-1).getId();
+        app.groups().delete(deletedGroup.getId());
+        Set<GroupData> after = app.groups().all();
 
         //проверяем размерность
         Assert.assertEquals(after.size(), before.size() -1);
-
-        try {
-            before.remove(GroupData.getIndexById(before, idToDelete));
-        }catch(IndexOutOfBoundsException ioobe) {
-            throw new TestException("Идентификатор ("+ idToDelete +") в списке групп не найден.");
-        }
-
-        Comparator<? super GroupData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-        before.sort(byId);
-        after.sort(byId);
-
+        before.remove(deletedGroup);
         Assert.assertEquals(after, before);
     }
 }

@@ -4,40 +4,31 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ContactData {
-    private  String firstname;
-    private  String midlename;
-    private  String lastname;
-    private  String nick;
-    private  String title;
-    private  String company;
-    private  String adress;
-    private  String home;
-    private  String mobile;
-    private  String work;
-    private  String fax;
-    private  String mail;
-    private  String mail2;
-    private  String mail3;
-    private  String homepage;
-    private  String address2;
-    private  String phone2;
-    private  String note;
+    private  String firstname = "";
+    private  String midlename = "";
+    private  String lastname = "";
+    private  String nick = "";
+    private  String title = "";
+    private  String company = "";
+    private  String adress = "";
+    private  String home = "";
+    private  String mobile = "";
+    private  String work = "";
+    private  String fax = "";
+    private  String mail = "";
+    private  String mail2 = "";
+    private  String mail3 = "";
+    private  String homepage = "";
+    private  String address2 = "";
+    private  String phone2 = "";
+    private  String note = "";
     private String[] birthday;
     private String[] anniversary;
-    private String group;
-    private int id;
+    private String group = "";
+    private int id  = Integer.MAX_VALUE;
 
-    public static int getIndexById(List<ContactData> lCD, int id)
-    {
-        for(int i = 0; i < lCD.size(); i++)
-        {
-            if(lCD.get(i).getId() == id)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
+    public ContactData()
+    {}
 
     public ContactData(String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
         this.firstname = firstname;
@@ -61,8 +52,6 @@ public class ContactData {
         this.birthday = birthday;
         this.anniversary = anniversary;
         this.group = group;
-        this.id = Integer.MAX_VALUE;
-
     }
 
     public ContactData(int id, String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
@@ -90,17 +79,6 @@ public class ContactData {
         this.id = id;
     }
 
-    public void setData(ContactData data) {
-        if(data.firstname != null)
-            this.firstname = data.firstname;
-
-        if (data.midlename != null)
-            this.midlename = data.midlename;
-
-        if (data.lastname != null)
-            this.lastname = data.lastname;
-    }
-
     public ContactData(int id, String firstname, String midlename, String lastname) {
         this.firstname = firstname;
         this.midlename = midlename;
@@ -120,6 +98,7 @@ public class ContactData {
         return group;
     }
 
+
     public String[] getBirthday() {
         return birthday;
     }
@@ -138,6 +117,21 @@ public class ContactData {
 
     public String getLastname() {
         return lastname;
+    }
+
+    public ContactData withFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public ContactData withMidlename(String midlename) {
+        this.midlename = midlename;
+        return this;
+    }
+
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
     }
 
     public String getNick() {
@@ -199,9 +193,34 @@ public class ContactData {
     public String getNote() {
         return note;
     }
+    public int getId() {return id;}
 
-    public int getId() {
-        return id;
+    public static int getIndexById(List<ContactData> lCD, int id)
+    {
+        for(int i = 0; i < lCD.size(); i++)
+        {
+            if(lCD.get(i).getId() == id)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+    public void setData(ContactData data) {
+        if(data.firstname != null)
+            this.firstname = data.firstname;
+
+        if (data.midlename != null)
+            this.midlename = data.midlename;
+
+        if (data.lastname != null)
+            this.lastname = data.lastname;
+    }
+
+    public ContactData withId(int id)
+    {
+        this.id = id;
+        return this;
     }
 
     @Override
@@ -211,18 +230,13 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        //if (midlename != null ? !midlename.equals(that.midlename) : that.midlename != null) return false;
-        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+        return id == that.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = firstname != null ? firstname.hashCode() : 0;
-        //result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        return result;
+        return id;
     }
 
     @Override
@@ -252,4 +266,5 @@ public class ContactData {
                 ", id=" + id +
                 '}';
     }
+
 }
