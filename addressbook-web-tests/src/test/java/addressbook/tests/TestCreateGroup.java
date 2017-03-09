@@ -25,7 +25,7 @@ public class TestCreateGroup extends TestBase {
         Groups after = app.groups().all();
 
         //проверяем размерность
-        assertThat(after.size(), equalTo(before.size() - 1));
+        assertThat(before.size() + 1, equalTo(after.size()));
 
         //проверяем идентификаторы
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));

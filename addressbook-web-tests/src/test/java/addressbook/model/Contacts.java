@@ -8,27 +8,34 @@ import java.util.Set;
 /**
  * Created by MyK on 06.03.17.
  */
-/*public class Contacts extends ForwardingSet<ContactData> {
+public class Contacts extends ForwardingSet<ContactData> {
 
     private Set<ContactData> delegate;
 
     public Contacts(Contacts contact) {
-        this.delegate = new HashSet<GroupData>(groups.delegate);
+        this.delegate = new HashSet<ContactData>(contact.delegate);
     }
 
-    public Groups() {
-        this.delegate = new HashSet<GroupData>();
+    public Contacts() {
+        this.delegate = new HashSet<ContactData>();
     }
 
     @Override
-    protected Set<GroupData> delegate() {
+    protected Set<ContactData> delegate() {
         return delegate;
     }
 
-    public Groups withAdded(GroupData group)
+    public Contacts withAdded(ContactData contact)
     {
-        Groups groups = new Groups(this);
-        groups.add(group);
-        return groups;
+        Contacts  contacts = new Contacts(this);
+        contacts.add(contact);
+        return contacts;
     }
-}*/
+
+    public Contacts without(ContactData contact)
+    {
+        Contacts contacts = new Contacts(this);
+        contacts.remove(contact);
+        return contacts;
+    }
+}

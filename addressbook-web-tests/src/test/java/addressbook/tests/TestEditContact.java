@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -8,6 +9,9 @@ import org.testng.annotations.Test;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by MyK on 28.01.17.
@@ -26,17 +30,16 @@ public class TestEditContact extends TestBase{
 
     @Test
     public void testEditContactById() {
-
-        Set<ContactData> contacts = app.contacts().all();
-        //ContactData cd = contacts.get(contacts.size()-1);
-        app.contacts().edit(contacts,new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3"), contacts.iterator().next().getId(), false, false);
         app.goTo().homePage();
-        Set<ContactData> after = app.contacts().all();
+        Contacts contacts = app.contacts().all();
+        app.contacts().edit(contacts, new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3"), contacts.iterator().next().getId(), false, false);
+        app.goTo().homePage();
+        Contacts after = app.contacts().all();
 
         //проверяем размерность
-        Assert.assertEquals(after.size(), contacts.size());
+        assertThat(after.size(), equalTo(contacts.size()));
 
-        // проверяем корректность заполненных данных
-        Assert.assertEquals(contacts, after);
+        //проверяем идентификаторы
+        assertThat(after, equalTo(contacts));
     }
 }

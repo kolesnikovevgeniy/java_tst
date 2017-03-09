@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
 import org.testng.Assert;
 import org.testng.TestException;
 import org.testng.annotations.BeforeMethod;
@@ -9,6 +10,9 @@ import org.testng.annotations.Test;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by MyK on 29.01.17.
@@ -27,21 +31,17 @@ public class TestDeleteContact extends TestBase{
     @Test
     public void testDeleteContact() {
 
-        Set<ContactData> before = app.contacts().all();
-        ContactData deletedContact = before.iterator().next();
-        //int idToDelete = before.get(before.size()-1).getId();
-        app.contacts().delete(deletedContact.getId());
-
         app.goTo().homePage();
-        Set<ContactData> after = app.contacts().all();
-
+        Contacts before = app.contacts().all();
+        ContactData deletedContact = before.iterator().next();
+        app.contacts().delete(deletedContact.getId());
+        app.goTo().homePage();
+        Contacts after = app.contacts().all();
 
         //проверяем размерность
-        Assert.assertEquals(after.size(), before.size() - 1);
+        assertThat(after.size() - 1, equalTo(before.size()));
 
-        before.remove(deletedContact);
-
-
-        Assert.assertEquals(after, before);
+        //проверяем идентификаторы
+        assertThat(after, equalTo(before.without(deletedContact)));
     }
 }

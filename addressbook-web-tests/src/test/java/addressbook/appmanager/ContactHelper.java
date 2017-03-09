@@ -1,6 +1,7 @@
 package addressbook.appmanager;
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
 import addressbook.model.GroupData;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
@@ -209,7 +210,7 @@ public class ContactHelper extends BaseHelper {
         return contactsData;
     }
 
-    public Set<ContactData> all()
+    /*public Set<ContactData> all()
     {
         Set<ContactData> contactsData = new HashSet<ContactData>();
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
@@ -224,12 +225,28 @@ public class ContactHelper extends BaseHelper {
                     e.findElements(By.tagName("td")).get(1).getText()));
         }
         return contactsData;
-    }
+    }*/
 
     public void delete(int idToDelete) {
         selectContactById(idToDelete);
         deleteSelectedContact();
         acceptDeleteContact();
+    }
+
+    public Contacts all()
+    {
+        Contacts contactsData = new Contacts();
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+        for(WebElement e : elements)
+        {
+            contactsData.add(new ContactData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")),
+                    e.findElements(By.tagName("td")).get(2).getText(),
+                    null,
+                    e.findElements(By.tagName("td")).get(1).getText()));
+        }
+        return contactsData;
     }
 
     public void edit(Set<ContactData> contacts, ContactData contact, int idToEdit, boolean creation, boolean createGroup) {
