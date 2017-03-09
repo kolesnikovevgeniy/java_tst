@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 import java.lang.String;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.joining;
 
 /**
  * Created by MyK on 28.01.17.
@@ -283,19 +282,21 @@ public class ContactHelper extends BaseHelper {
         if (m.find())
             mobile = allDetail.substring(m.start() + 3, m.end() - 1);
 
-        List emails = wd.findElements(By.xpath("//div[@id='content']/a"));
-        Object allEmails = emails.stream().collect(joining("\n"));
-        /*for(WebElement we : emails)
+        List<WebElement> emails = wd.findElements(By.xpath("//div[@id='content']/a"));
+        ArrayList<String> arrAllEmails = new ArrayList<String>();
+        for(WebElement we : emails)
         {
-            allEmails += we.getText() + "\n";
-        }*/
+            arrAllEmails.add(we.getText());
+        }
+
+        String allEmails = arrAllEmails.stream().collect(Collectors.joining("\n"));
         return new ContactData().withId(contact.getId())
                 .withFIO(wd.findElement(By.xpath("//div[@id='content']/b")).getText())
                 .withAllPhones(wd.findElement(By.xpath("//div[@id='content']/br[3]")).getText().replaceAll("(W: )|(H: )|(M: )", ""))
                 .withHomePhone(home)
                 .withWorkPhone(work)
                 .withMobilePhone(mobile)
-                .withAllEmails(new String((String) allEmails))
+                .withAllEmails(allEmails)
                 .withAddress(wd.findElement(By.xpath("//div[@id='content']/br[1]")).getText());
 
     }
