@@ -3,15 +3,18 @@ package addressbook.appmanager;
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.model.GroupData;
-import org.apache.xpath.operations.String;
 import org.openqa.selenium.*;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.lang.String;
+import java.util.stream.Collectors;
 
-import static org.apache.http.client.methods.RequestBuilder.trace;
+import static java.util.stream.Collectors.joining;
 
 /**
  * Created by MyK on 28.01.17.
@@ -144,6 +147,9 @@ public class ContactHelper extends BaseHelper {
     public void clickEditContact(int id) {
         wd.findElement(By.xpath("//a[@href='edit.php?id="+id+"']")).click();
     }
+    public void clickViewContact(int id) {
+        wd.findElement(By.xpath("//a[@href='view.php?id="+id+"']")).click();
+    }
 
     public void clickUpdateContact() {
         click(By.name("update"));
@@ -209,7 +215,6 @@ public class ContactHelper extends BaseHelper {
         setTimeout(ApllicationManager.STANDART_TIMEOUT);
         for(WebElement e : elements)
         {
-            //String string
             java.lang.String phones = e.findElements(By.tagName("td")).get(5).getText();//.split("\n");
             java.lang.String emails = e.findElements(By.tagName("td")).get(4).getText();
             contactsCache.add(new ContactData().withId(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")))
@@ -218,9 +223,6 @@ public class ContactHelper extends BaseHelper {
                     .withAllPhones(phones)
                     .withAddress(e.findElements(By.tagName("td")).get(3).getText())
                     .withAllEmails(emails));
-            //.withHomePhone(phones[0])
-            //.withMobilePhone(phones[1])
-            //.withWorkPhone(phones[3]));
         }
         return new Contacts(contactsCache);
     }
@@ -245,6 +247,7 @@ public class ContactHelper extends BaseHelper {
 
         return new ContactData().withId(contact.getId())
                 .withFirstname(wd.findElement(By.name("firstname")).getAttribute("value"))
+                .withMiddlename(wd.findElement(By.name("middlename")).getAttribute("value"))
                 .withLastname(wd.findElement(By.name("lastname")).getAttribute("value"))
                 .withHomePhone(wd.findElement(By.name("home")).getAttribute("value"))
                 .withWorkPhone(wd.findElement(By.name("work")).getAttribute("value"))
@@ -254,6 +257,46 @@ public class ContactHelper extends BaseHelper {
                 .withEmail3(wd.findElement(By.name("email3")).getAttribute("value"))
                 .withAddress(wd.findElement(By.name("address")).getAttribute("value"))
                 .withAddress2(wd.findElement(By.name("address2")).getAttribute("value"));
+
+    }
+
+    public ContactData infoDetails(ContactData contact) {
+        clickViewContact(contact.getId());
+        java.lang.String home = "";
+        java.lang.String work = "";
+        java.lang.String mobile = "";
+
+        java.lang.String allDetail = wd.findElement(By.xpath("//div[@id='content']")).getText();
+        Pattern p = Pattern.compile("(H: ).*\\n");
+        Matcher m = p.matcher(allDetail);
+
+        if (m.find())
+            home = allDetail.substring(m.start() + 3, m.end() - 1);
+
+        p = Pattern.compile("(W: ).*\\n");
+        m = p.matcher(allDetail);
+        if (m.find())
+            work = allDetail.substring(m.start() + 3, m.end() - 1);
+
+        p = Pattern.compile("(M: ).*\\n");
+        m = p.matcher(allDetail);
+        if (m.find())
+            mobile = allDetail.substring(m.start() + 3, m.end() - 1);
+
+        List emails = wd.findElements(By.xpath("//div[@id='content']/a"));
+        Object allEmails = emails.stream().collect(joining("\n"));
+        /*for(WebElement we : emails)
+        {
+            allEmails += we.getText() + "\n";
+        }*/
+        return new ContactData().withId(contact.getId())
+                .withFIO(wd.findElement(By.xpath("//div[@id='content']/b")).getText())
+                .withAllPhones(wd.findElement(By.xpath("//div[@id='content']/br[3]")).getText().replaceAll("(W: )|(H: )|(M: )", ""))
+                .withHomePhone(home)
+                .withWorkPhone(work)
+                .withMobilePhone(mobile)
+                .withAllEmails(new String((String) allEmails))
+                .withAddress(wd.findElement(By.xpath("//div[@id='content']/br[1]")).getText());
 
     }
 }

@@ -27,6 +27,7 @@ public class ContactData {
     private String group = "";
     private int id  = Integer.MAX_VALUE;
     private String allPhones;
+    private String fio;
 
     public String getAllEmails() {
         return allEmails;
@@ -341,6 +342,20 @@ public class ContactData {
 
     public ContactData withAllEmails(String emails) {
         this.allEmails = emails;
+        return this;
+    }
+
+    public ContactData withMiddlename(String attribute) {
+        this.midlename = attribute;
+        return this;
+    }
+
+    public String getFio() {
+        return fio;
+    }
+
+    public ContactData withFIO(String attribute) {
+        this.fio = attribute;
         return this;
     }
 }
