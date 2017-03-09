@@ -34,11 +34,12 @@ public class TestEditGroup extends TestBase{
         Groups groups = app.groups().all();
 
         app.groups().edit(groups, new GroupData().withName("test1").withHeader("testheader").withFooter("blabla"), groups.iterator().next().getId());
-        Groups after = app.groups().all();
+
 
         //проверяем размерность
-        assertThat(after.size(), equalTo(groups.size()));
+        assertThat(app.groups().count(), equalTo(groups.size()));
 
+        Groups after = app.groups().all();
         //проверяем идентификаторы
         assertThat(after, equalTo(groups));
     }

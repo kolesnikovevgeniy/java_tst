@@ -34,11 +34,12 @@ public class TestEditContact extends TestBase{
         Contacts contacts = app.contacts().all();
         app.contacts().edit(contacts, new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3"), contacts.iterator().next().getId(), false, false);
         app.goTo().homePage();
-        Contacts after = app.contacts().all();
+
 
         //проверяем размерность
-        assertThat(after.size(), equalTo(contacts.size()));
+        assertThat(app.contacts().count(), equalTo(contacts.size()));
 
+        Contacts after = app.contacts().all();
         //проверяем идентификаторы
         assertThat(after, equalTo(contacts));
     }

@@ -36,12 +36,16 @@ public class TestDeleteContact extends TestBase{
         ContactData deletedContact = before.iterator().next();
         app.contacts().delete(deletedContact.getId());
         app.goTo().homePage();
-        Contacts after = app.contacts().all();
+
 
         //проверяем размерность
-        assertThat(after.size() - 1, equalTo(before.size()));
+        assertThat(app.contacts().count(), equalTo(before.size() - 1));
+
+        Contacts after = app.contacts().all();
 
         //проверяем идентификаторы
         assertThat(after, equalTo(before.without(deletedContact)));
     }
+
+
 }

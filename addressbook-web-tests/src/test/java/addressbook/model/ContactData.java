@@ -26,6 +26,22 @@ public class ContactData {
     private String[] anniversary;
     private String group = "";
     private int id  = Integer.MAX_VALUE;
+    private String allPhones;
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public void setAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+    }
+
+
+
+
+
+
+
 
     public ContactData()
     {}
@@ -93,6 +109,43 @@ public class ContactData {
         this.id = Integer.MAX_VALUE;
     }
 
+
+    public ContactData withFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
+    }
+
+    public ContactData withMidlename(String midlename) {
+        this.midlename = midlename;
+        return this;
+    }
+
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withHomePhone(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobile) {
+        this.mobile = mobile;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String work) {
+        this.work = work;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones)
+    {
+        this.allPhones = allPhones;
+        return this;
+    }
+
     public String getGroup()
     {
         return group;
@@ -119,21 +172,8 @@ public class ContactData {
         return lastname;
     }
 
-    public ContactData withFirstname(String firstname) {
-        this.firstname = firstname;
-        return this;
-    }
 
-    public ContactData withMidlename(String midlename) {
-        this.midlename = midlename;
-        return this;
-    }
-
-    public ContactData withLastname(String lastname) {
-        this.lastname = lastname;
-        return this;
-    }
-
+    
     public String getNick() {
         return nick;
     }
@@ -266,5 +306,6 @@ public class ContactData {
                 ", id=" + id +
                 '}';
     }
+
 
 }

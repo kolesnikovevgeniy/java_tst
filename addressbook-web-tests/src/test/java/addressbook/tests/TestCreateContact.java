@@ -28,4 +28,21 @@ public class TestCreateContact extends TestBase {
         //проверяем идентификаторы
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
+
+    @Test
+    public void testCreateBadContact() {
+        app.goTo().homePage();
+        Contacts before = app.contacts().all();
+        ContactData contact = new ContactData().withFirstname("Test1'").withMidlename("testmidle").withLastname("testlast");
+        app.contacts().create(contact, true, false);
+        app.goTo().homePage();
+
+
+        //проверяем размерность
+        assertThat(before.size(), equalTo(app.contacts().count()));
+
+        Contacts after = app.contacts().all();
+        //проверяем идентификаторы
+        assertThat(after, equalTo(before));
+    }
 }

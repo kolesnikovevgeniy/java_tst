@@ -22,13 +22,28 @@ public class TestCreateGroup extends TestBase {
         GroupData group = new GroupData().withName("test1").withHeader("testheader").withFooter("blabla");
         app.groups().create(group);
         app.goTo().groups();
-        Groups after = app.groups().all();
+
 
         //проверяем размерность
-        assertThat(before.size() + 1, equalTo(after.size()));
-
+        assertThat(before.size() + 1, equalTo(app.groups().count()));
+        Groups after = app.groups().all();
         //проверяем идентификаторы
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
+    @Test
+    public void testCreateBadGroup() {
+        app.goTo().groups();
+        Groups before = app.groups().all();
+        GroupData group = new GroupData().withName("test1'").withHeader("testheader").withFooter("blabla");
+        app.groups().create(group);
+        app.goTo().groups();
+
+        //проверяем размерность
+        assertThat(before.size(), equalTo(app.groups().count()));
+
+        Groups after = app.groups().all();
+        //проверяем идентификаторы
+        assertThat(after, equalTo(before));
+    }
 }

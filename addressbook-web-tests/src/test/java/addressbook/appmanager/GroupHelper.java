@@ -61,9 +61,14 @@ public class GroupHelper extends BaseHelper{
         clickCreateNewGroup();
         fillGroupParams(groupData);
         clickAddGroup();
+        groupsCache = null;
         returnGroupsPage();
     }
 
+    public int count()
+    {
+        return wd.findElements(By.name("selected[]")).size();
+    }
     public void selectGroup(int num)
     {
         wd.findElements(By.name("selected[]")).get(num).click();
@@ -90,22 +95,27 @@ public class GroupHelper extends BaseHelper{
         return groupsData;
     }
 
+    private Groups groupsCache = null;
     public Groups all()
     {
-        Groups groupsData = new Groups();
+        if(groupsCache != null)
+            return new Groups(groupsCache);
+
+        groupsCache = new Groups();
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         setTimeout(ApllicationManager.STANDART_TIMEOUT);
         for(WebElement e : elements)
         {
-            groupsData.add(new GroupData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")), e.getText(), null, null));
+            groupsCache.add(new GroupData(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")), e.getText(), null, null));
         }
-        return groupsData;
+        return new Groups(groupsCache);
     }
 
     public void delete(int idToDelete) {
         selectGroupById(idToDelete);
         deleteSelectedGroup();
+        groupsCache = null;
         returnGroupsPage();
     }
 
@@ -121,6 +131,7 @@ public class GroupHelper extends BaseHelper{
         //groups.get(GroupData.getIndexById(groups, idToEdit)).setData(group);
         fillGroupParams(group);
         updateGroup();
+        groupsCache = null;
         returnGroupsPage();
 
     }

@@ -34,10 +34,11 @@ public class TestDeleteGroup extends TestBase{
         Groups before = app.groups().all();
         GroupData deletedGroup = before.iterator().next();
         app.groups().delete(deletedGroup.getId());
-        Groups after = app.groups().all();
+
 
         //проверяем размерность
-        assertThat(after.size(), equalTo(before.size() - 1));
+        assertThat(app.groups().count(), equalTo(before.size() - 1));
+        Groups after = app.groups().all();
 
         //проверяем идентификаторы
         assertThat(after, equalTo(before.without(deletedGroup)));
