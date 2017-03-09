@@ -28,6 +28,12 @@ public class ContactData {
     private int id  = Integer.MAX_VALUE;
     private String allPhones;
 
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    private String allEmails;
+
     public String getAllPhones() {
         return allPhones;
     }
@@ -308,4 +314,33 @@ public class ContactData {
     }
 
 
+    public ContactData withEmail1(String attribute) {
+        this.mail = attribute;
+        return this;
+    }
+
+    public ContactData withEmail2(String attribute) {
+        this.mail2 = attribute;
+        return this;
+    }
+
+    public ContactData withEmail3(String attribute) {
+        this.mail3 = attribute;
+        return this;
+    }
+
+    public ContactData withAddress(String attribute) {
+        this.adress = attribute;
+        return this;
+    }
+
+    public ContactData withAddress2(String attribute) {
+        this.address2 = attribute;
+        return this;
+    }
+
+    public ContactData withAllEmails(String emails) {
+        this.allEmails = emails;
+        return this;
+    }
 }

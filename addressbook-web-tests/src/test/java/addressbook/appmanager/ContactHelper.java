@@ -211,10 +211,13 @@ public class ContactHelper extends BaseHelper {
         {
             //String string
             java.lang.String phones = e.findElements(By.tagName("td")).get(5).getText();//.split("\n");
+            java.lang.String emails = e.findElements(By.tagName("td")).get(4).getText();
             contactsCache.add(new ContactData().withId(Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value")))
                     .withFirstname(e.findElements(By.tagName("td")).get(2).getText())
                     .withLastname(e.findElements(By.tagName("td")).get(1).getText())
-                    .withAllPhones(phones));
+                    .withAllPhones(phones)
+                    .withAddress(e.findElements(By.tagName("td")).get(3).getText())
+                    .withAllEmails(emails));
             //.withHomePhone(phones[0])
             //.withMobilePhone(phones[1])
             //.withWorkPhone(phones[3]));
@@ -239,12 +242,18 @@ public class ContactHelper extends BaseHelper {
 
     public ContactData infoFromEditForm(ContactData contact) {
         clickEditContact(contact.getId());
+
         return new ContactData().withId(contact.getId())
                 .withFirstname(wd.findElement(By.name("firstname")).getAttribute("value"))
                 .withLastname(wd.findElement(By.name("lastname")).getAttribute("value"))
                 .withHomePhone(wd.findElement(By.name("home")).getAttribute("value"))
                 .withWorkPhone(wd.findElement(By.name("work")).getAttribute("value"))
-                .withMobilePhone(wd.findElement(By.name("mobile")).getAttribute("value"));
+                .withMobilePhone(wd.findElement(By.name("mobile")).getAttribute("value"))
+                .withEmail1(wd.findElement(By.name("email")).getAttribute("value"))
+                .withEmail2(wd.findElement(By.name("email2")).getAttribute("value"))
+                .withEmail3(wd.findElement(By.name("email3")).getAttribute("value"))
+                .withAddress(wd.findElement(By.name("address")).getAttribute("value"))
+                .withAddress2(wd.findElement(By.name("address2")).getAttribute("value"));
 
     }
 }
