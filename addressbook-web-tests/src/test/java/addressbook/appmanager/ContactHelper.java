@@ -282,14 +282,10 @@ public class ContactHelper extends BaseHelper {
         if (m.find())
             mobile = allDetail.substring(m.start() + 3, m.end() - 1);
 
+        // собираем все мэйлы
         List<WebElement> emails = wd.findElements(By.xpath("//div[@id='content']/a"));
-        ArrayList<String> arrAllEmails = new ArrayList<String>();
-        for(WebElement we : emails)
-        {
-            arrAllEmails.add(we.getText());
-        }
+        String allEmails = emails.stream().map(WebElement::getText).collect(Collectors.joining("\n"));
 
-        String allEmails = arrAllEmails.stream().collect(Collectors.joining("\n"));
         return new ContactData().withId(contact.getId())
                 .withFIO(wd.findElement(By.xpath("//div[@id='content']/b")).getText())
                 .withAllPhones(wd.findElement(By.xpath("//div[@id='content']/br[3]")).getText().replaceAll("(W: )|(H: )|(M: )", ""))
