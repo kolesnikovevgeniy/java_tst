@@ -14,7 +14,7 @@ import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
  */
 public class TestBase {
 
-    public static ApllicationManager app = new ApllicationManager(BrowserType.FIREFOX);
+    public static ApllicationManager app = new ApllicationManager(BrowserType.CHROME);
 
     public TestBase()
     {

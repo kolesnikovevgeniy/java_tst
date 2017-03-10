@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 import java.util.concurrent.TimeUnit;
+import java.io.*;
 
 /**
  * Created by MyK on 28.01.17.
@@ -28,6 +29,14 @@ public class BaseHelper {
 
             wd.findElement(locator).clear();
             wd.findElement(locator).sendKeys(text);
+        }
+    }
+
+    protected void attach(By locator, File f) {
+
+        if(f != null && f.exists())
+        {
+            wd.findElement(locator).sendKeys(f.getAbsolutePath());
         }
     }
 

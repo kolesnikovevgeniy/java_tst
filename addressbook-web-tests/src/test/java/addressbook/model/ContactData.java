@@ -2,6 +2,7 @@ package addressbook.model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.io.*;
 
 public class ContactData {
     private  String firstname = "";
@@ -28,6 +29,17 @@ public class ContactData {
     private int id  = Integer.MAX_VALUE;
     private String allPhones;
     private String fio;
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    private File photo;
 
     public String getAllEmails() {
         return allEmails;

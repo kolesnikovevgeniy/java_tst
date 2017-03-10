@@ -51,6 +51,8 @@ public class ContactHelper extends BaseHelper {
         type(By.name("phone2"), contactData.getPhone2());
         type(By.name("notes"), contactData.getNote());
 
+        attach(By.name("photo"), contactData.getPhoto());
+
         if(creation && isElementPresent(By.name("new_group")))
         {
             try

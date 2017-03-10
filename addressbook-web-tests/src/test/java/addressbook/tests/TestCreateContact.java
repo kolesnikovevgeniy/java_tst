@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
-
+import java.io.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -17,7 +17,8 @@ public class TestCreateContact extends TestBase {
     public void testCreateContact() {
         app.goTo().homePage();
         Contacts before = app.contacts().all();
-        ContactData contact = new ContactData().withFirstname("Test1").withMidlename("testmidle").withLastname("testlast");
+        File photo = new File("./src/test/resources/1.png");
+        ContactData contact = new ContactData().withFirstname("Test1").withMidlename("testmidle").withLastname("testlast").withPhoto(photo);
         app.contacts().create(contact, true, false);
         app.goTo().homePage();
         Contacts after = app.contacts().all();
