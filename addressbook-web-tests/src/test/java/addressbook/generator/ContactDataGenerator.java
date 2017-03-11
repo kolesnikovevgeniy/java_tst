@@ -64,9 +64,19 @@ public class ContactDataGenerator {
         stream.processAnnotations(ContactData.class);
         stream.alias("contact", ContactData.class);
         String xml = stream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file))
+        {
+            writer.write(xml);
+        }
+    }
+
+    private void saveInCSV(List<ContactData> contacts, File file) throws IOException
+    {
+        try (Writer writer = new FileWriter(file)) {
+            for (ContactData c : contacts) {
+                writer.write(String.format("%s;%s;%s\n", c.getFirstname(), c.getMidlename(), c.getLastname()));
+            }
+        }
     }
 
     private List<ContactData> generateContacts(int count)
