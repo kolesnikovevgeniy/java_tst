@@ -1,5 +1,7 @@
 package addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.util.Arrays;
 import java.util.List;
 import java.io.*;
@@ -26,6 +28,8 @@ public class ContactData {
     private String[] birthday;
     private String[] anniversary;
     private String group = "";
+
+    @XStreamOmitField
     private int id  = Integer.MAX_VALUE;
     private String allPhones;
     private String fio;

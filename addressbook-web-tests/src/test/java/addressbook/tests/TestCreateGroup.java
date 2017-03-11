@@ -19,23 +19,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class TestCreateGroup extends TestBase {
     @DataProvider
     public Iterator<Object[]> validGroupsXML() throws IOException {
-        List<Object[]> groups = new ArrayList<>();
-
-        File file = new File("src/test/resources/groups.xml");
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.csv")));
-        String line = reader.readLine();
-        while(line != null)
-        {
-            String[] data = line.split(";");
-            groups.add(new Object[] {new GroupData().withName(data[0]).withHeader(data[1]).withFooter(data[2])});
-            line = reader.readLine();
-        }
         XStream stream = new XStream();
         stream.processAnnotations(GroupData.class);
-        List<GroupData> groupsXML = (List<GroupData>)stream.fromXML(file);
+        List<GroupData> groupsXML = (List<GroupData>)stream.fromXML(new File("src/test/resources/groups.xml"));
         return groupsXML.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
-        //return groups.iterator();
     }
+
     @Test(dataProvider = "validGroupsXML")
     public void testCreateGroup(GroupData group) {
         app.goTo().groups();
