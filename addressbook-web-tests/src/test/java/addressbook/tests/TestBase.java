@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeSuite;
  */
 public class TestBase {
 
-    public static ApllicationManager app = new ApllicationManager(BrowserType.CHROME);
+    public static ApllicationManager app = new ApllicationManager(System.getProperty("browser", BrowserType.CHROME));
 
     public TestBase()
     {

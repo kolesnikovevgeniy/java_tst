@@ -6,8 +6,10 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.io.FileReader;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
-
+import java.io.*;
 /**
  * Created by MyK on 28.01.17.
  */
@@ -19,14 +21,19 @@ public class ApllicationManager {
     private WebDriver wd;
     private String browser;
 
+    private Properties properties;
     // настройки таймаутов
     public static int WAIT_ELEMENT_TIMEOUT = 3;
     public static int STANDART_TIMEOUT = 60;
 
     public ApllicationManager(String browser){
         this.browser = browser;
+        this.properties = new Properties();
     }
-    public void init() {
+    public void init() throws IOException {
+
+        String target = System.getProperty("target", "local");
+        properties.load(new FileReader(new File("src/test/resources/" +target+ ".prop")));
         if (browser.equals(BrowserType.FIREFOX))
         {
             wd = new FirefoxDriver();
@@ -45,8 +52,8 @@ public class ApllicationManager {
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
-        wd.get("http://localhost/addressbook/");
-        sessionHelper.login("admin", "secret");
+        wd.get(properties.getProperty("web.targetURL"));
+        sessionHelper.login(properties.getProperty("web.login"),properties.getProperty("web.password"));
     }
 
 
