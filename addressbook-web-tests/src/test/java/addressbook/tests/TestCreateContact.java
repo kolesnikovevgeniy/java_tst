@@ -3,22 +3,29 @@ package addressbook.tests;
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.io.*;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class TestCreateContact extends TestBase {
-    @Test
-    public void testCreateContact() {
+    @DataProvider
+    public Iterator<Object[]> validContacts()
+    {
+        List<Object[]> contacts = new ArrayList<>();
+        contacts.add(new Object[] {new ContactData().withFirstname("name1")});
+        return contacts.iterator();
+    }
+
+    @Test(dataProvider = "validContacts")
+    public void testCreateContact(ContactData contact) {
         app.goTo().homePage();
         Contacts before = app.contacts().all();
         File photo = new File("./src/test/resources/1.png");
-        ContactData contact = new ContactData().withFirstname("Test1").withMidlename("testmidle").withLastname("testlast").withPhoto(photo);
+        //ContactData contact = new ContactData().withFirstname("Test1").withMidlename("testmidle").withLastname("testlast").withPhoto(photo);
         app.contacts().create(contact, true, false);
         app.goTo().homePage();
         Contacts after = app.contacts().all();

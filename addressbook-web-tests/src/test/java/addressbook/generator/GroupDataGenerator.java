@@ -3,6 +3,7 @@ import addressbook.model.GroupData;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.thoughtworks.xstream.XStream;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class GroupDataGenerator {
 
     @Parameter(names = "-f", description = "File name")
     public String file;
+
+    @Parameter(names = "-d", description = "Data format")
+    public String format;
 
     public static void main(String[] args) throws IOException {
         GroupDataGenerator generator = new GroupDataGenerator();
@@ -35,12 +39,38 @@ public class GroupDataGenerator {
 
     private void run() throws IOException {
         List<GroupData> groups = generateGroups(count);
-        save(groups, new File(file));
+        switch(format)
+        {
+            case "csv":
+                saveInCSV(groups, new File(file));
+                break;
+
+            case "xml":
+                saveInXML(groups, new File(file));
+                break;
+
+            case "json":
+                saveInJSON(groups, new File(file));
+                break;
+        }
     }
 
-    private void save(List<GroupData> groups, File file) throws IOException
+    private void saveInJSON(List<GroupData> groups, File file) {
+    }
+
+    private void saveInXML(List<GroupData> groups, File file) throws IOException {
+        XStream stream= new XStream();
+
+        stream.processAnnotations(GroupData.class);
+        stream.alias("group", GroupData.class);
+        String xml = stream.toXML(groups);
+        Writer writer = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
+    }
+
+    private void saveInCSV(List<GroupData> groups, File file) throws IOException
     {
-        System.out.println(new File(".").getAbsolutePath());
         Writer writer = new FileWriter(file);
         for(GroupData g : groups)
         {
