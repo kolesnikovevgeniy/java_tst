@@ -1,11 +1,12 @@
 package addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import java.util.Arrays;
 import java.util.List;
 import java.io.*;
-
+@XStreamAlias("contact")
 public class ContactData {
     private  String firstname = "";
     private  String midlename = "";
