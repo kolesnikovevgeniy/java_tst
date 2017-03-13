@@ -28,14 +28,14 @@ public class TestCreateGroup extends TestBase {
     @Test(dataProvider = "validGroupsXML")
     public void testCreateGroup(GroupData group) {
         app.goTo().groups();
-        Groups before = app.groups().all();
+        Groups before = app.db().groups();
         app.groups().create(group);
         app.goTo().groups();
 
 
         //проверяем размерность
         assertThat(before.size() + 1, equalTo(app.groups().count()));
-        Groups after = app.groups().all();
+        Groups after = app.db().groups();
         //проверяем идентификаторы
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
@@ -43,7 +43,7 @@ public class TestCreateGroup extends TestBase {
     @Test
     public void testCreateBadGroup() {
         app.goTo().groups();
-        Groups before = app.groups().all();
+        Groups before = app.db().groups();
         GroupData group = new GroupData().withName("test1'").withHeader("testheader").withFooter("blabla");
         app.groups().create(group);
         app.goTo().groups();
@@ -51,7 +51,7 @@ public class TestCreateGroup extends TestBase {
         //проверяем размерность
         assertThat(before.size(), equalTo(app.groups().count()));
 
-        Groups after = app.groups().all();
+        Groups after = app.db().groups();
         //проверяем идентификаторы
         assertThat(after, equalTo(before));
     }

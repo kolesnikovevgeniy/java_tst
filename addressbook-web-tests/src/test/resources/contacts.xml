@@ -6,7 +6,10 @@
     <nick></nick>
     <title></title>
     <company></company>
-    <adress></adress>
+    <address></address>
+    <addr__long></addr__long>
+    <addr__lat></addr__lat>
+    <addr__status></addr__status>
     <home></home>
     <mobile></mobile>
     <work></work>
@@ -18,7 +21,6 @@
     <address2></address2>
     <phone2></phone2>
     <note></note>
-    <group></group>
   </contact>
   <contact>
     <firstname>Name1</firstname>
@@ -27,7 +29,10 @@
     <nick></nick>
     <title></title>
     <company></company>
-    <adress></adress>
+    <address></address>
+    <addr__long></addr__long>
+    <addr__lat></addr__lat>
+    <addr__status></addr__status>
     <home></home>
     <mobile></mobile>
     <work></work>
@@ -39,7 +44,6 @@
     <address2></address2>
     <phone2></phone2>
     <note></note>
-    <group></group>
   </contact>
   <contact>
     <firstname>Name2</firstname>
@@ -48,7 +52,10 @@
     <nick></nick>
     <title></title>
     <company></company>
-    <adress></adress>
+    <address></address>
+    <addr__long></addr__long>
+    <addr__lat></addr__lat>
+    <addr__status></addr__status>
     <home></home>
     <mobile></mobile>
     <work></work>
@@ -60,6 +67,51 @@
     <address2></address2>
     <phone2></phone2>
     <note></note>
-    <group></group>
+  </contact>
+  <contact>
+    <firstname>Name3</firstname>
+    <midlename>Midlename3</midlename>
+    <lastname>Lastname3</lastname>
+    <nick></nick>
+    <title></title>
+    <company></company>
+    <address></address>
+    <addr__long></addr__long>
+    <addr__lat></addr__lat>
+    <addr__status></addr__status>
+    <home></home>
+    <mobile></mobile>
+    <work></work>
+    <fax></fax>
+    <mail></mail>
+    <mail2></mail2>
+    <mail3></mail3>
+    <homepage></homepage>
+    <address2></address2>
+    <phone2></phone2>
+    <note></note>
+  </contact>
+  <contact>
+    <firstname>Name4</firstname>
+    <midlename>Midlename4</midlename>
+    <lastname>Lastname4</lastname>
+    <nick></nick>
+    <title></title>
+    <company></company>
+    <address></address>
+    <addr__long></addr__long>
+    <addr__lat></addr__lat>
+    <addr__status></addr__status>
+    <home></home>
+    <mobile></mobile>
+    <work></work>
+    <fax></fax>
+    <mail></mail>
+    <mail2></mail2>
+    <mail3></mail3>
+    <homepage></homepage>
+    <address2></address2>
+    <phone2></phone2>
+    <note></note>
   </contact>
 </list>

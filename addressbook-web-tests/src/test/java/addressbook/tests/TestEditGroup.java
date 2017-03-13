@@ -21,9 +21,9 @@ public class TestEditGroup extends TestBase{
 
     @BeforeMethod
     public void before() {
-        app.goTo().groups();
-        if (app.groups().all().size() == 0)
+        if (app.db().groups().size() == 0)
         {
+            app.goTo().groups();
             app.groups().create( new GroupData().withName("test1").withHeader("testheader").withFooter("blabla"));
         }
     }
@@ -31,16 +31,18 @@ public class TestEditGroup extends TestBase{
     // так как мы знаем id, то можем просто модифицировать список на нужные значения
     @Test
     public void testEditGroupByID() {
-        Groups groups = app.groups().all();
-
-        app.groups().edit(groups, new GroupData().withName("test1").withHeader("testheader").withFooter("blabla"), groups.iterator().next().getId());
-
+        Groups groups = app.db().groups();
+        app.goTo().groups();
+        GroupData gDeleted = groups.iterator().next();
+        GroupData gAdded = new GroupData().withName("test1").withHeader("testheader").withFooter("blabla");
+        app.groups().edit(groups,gAdded, gDeleted.getId());
 
         //проверяем размерность
         assertThat(app.groups().count(), equalTo(groups.size()));
 
-        Groups after = app.groups().all();
+        Groups after = app.db().groups();
+
         //проверяем идентификаторы
-        assertThat(after, equalTo(groups));
+        assertThat(after, equalTo(groups.without(gDeleted).withAdded(gAdded)));
     }
 }

@@ -1,39 +1,155 @@
 package addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.io.*;
+
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+    @Expose
+    @Column(name = "firstname")
     private  String firstname = "";
+
+    @Expose
+    @Column(name = "middlename")
     private  String midlename = "";
+
+    @Expose
+    @Column(name = "lastname")
     private  String lastname = "";
+
+    @Expose
+    @Column(name = "nickname")
     private  String nick = "";
+
+    @Expose
+    @Column(name = "title")
     private  String title = "";
+
+    @Expose
+    @Column(name = "company")
     private  String company = "";
-    private  String adress = "";
+
+    @Expose
+    @Column(name = "address")
+    @Type(type= "text")
+    private  String address = "";
+
+    @Expose
+    @Column(name = "addr_long")
+    @Type(type= "text")
+    private  String addr_long = "";
+
+    @Expose
+    @Column(name = "addr_lat")
+    @Type(type= "text")
+    private  String addr_lat = "";
+
+    @Expose
+    @Column(name = "addr_status")
+    @Type(type= "text")
+    private  String addr_status = "";
+
+    @Expose
+    @Column(name = "home")
+    @Type(type= "text")
     private  String home = "";
+
+    @Expose
+    @Column(name = "mobile")
+    @Type(type= "text")
     private  String mobile = "";
+
+    @Expose
+    @Column(name = "work")
+    @Type(type= "text")
     private  String work = "";
+
+    @Expose
+    @Column(name = "fax")
+    @Type(type= "text")
     private  String fax = "";
+
+    @Expose
+    @Column(name = "email")
+    @Type(type= "text")
     private  String mail = "";
+
+    @Expose
+    @Column(name = "email2")
+    @Type(type= "text")
     private  String mail2 = "";
+
+    @Expose
+    @Column(name = "email3")
+    @Type(type= "text")
     private  String mail3 = "";
+
+    @Expose
+    @Column(name = "homepage")
+    @Type(type= "text")
     private  String homepage = "";
+
+    @Expose
+    @Column(name = "address2")
+    @Type(type= "text")
     private  String address2 = "";
+
+    @Expose
+    @Column(name = "phone2")
+    @Type(type= "text")
     private  String phone2 = "";
+
+    @Expose
+    @Column(name = "notes")
+    @Type(type= "text")
+
     private  String note = "";
-    private String[] birthday;
-    private String[] anniversary;
-    private String group = "";
+
+    private transient String[] birthday;
+
+    private transient String[] anniversary;
+
+    @Expose
+    private String role;
+
+    @Expose
+    @Type(type= "text")
+    private String im;
+
+    @Expose
+    @Type(type= "text")
+    private String im2;
+
+    @Expose
+    @Type(type= "text")
+    private String im3;
 
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id  = Integer.MAX_VALUE;
-    private String allPhones;
-    private String fio;
+
+    //@Column(name = "deprecated" )
+    //private Date deprecated  = null;
+
+    private transient String group;
+    private transient String allPhones;
+    private transient String fio;
+    private transient String allEmails;
+    private transient File photo;
 
     public File getPhoto() {
         return photo;
@@ -44,13 +160,9 @@ public class ContactData {
         return this;
     }
 
-    private File photo;
-
     public String getAllEmails() {
         return allEmails;
     }
-
-    private String allEmails;
 
     public String getAllPhones() {
         return allPhones;
@@ -59,13 +171,6 @@ public class ContactData {
     public void setAllPhones(String allPhones) {
         this.allPhones = allPhones;
     }
-
-
-
-
-
-
-
 
     public ContactData()
     {}
@@ -77,7 +182,7 @@ public class ContactData {
         this.nick = nick;
         this.title = title;
         this.company = company;
-        this.adress = adress;
+        this.address = adress;
         this.home = home;
         this.mobile = mobile;
         this.work = work;
@@ -101,7 +206,7 @@ public class ContactData {
         this.nick = nick;
         this.title = title;
         this.company = company;
-        this.adress = adress;
+        this.address = adress;
         this.home = home;
         this.mobile = mobile;
         this.work = work;
@@ -195,8 +300,6 @@ public class ContactData {
     public String getLastname() {
         return lastname;
     }
-
-
     
     public String getNick() {
         return nick;
@@ -211,7 +314,7 @@ public class ContactData {
     }
 
     public String getAdress() {
-        return adress;
+        return address;
     }
 
     public String getHome() {
@@ -288,22 +391,6 @@ public class ContactData {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        return id == that.id;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
-
-    @Override
     public String toString() {
         return "ContactData{" +
                 "firstname='" + firstname + '\'' +
@@ -312,7 +399,7 @@ public class ContactData {
                 ", nick='" + nick + '\'' +
                 ", title='" + title + '\'' +
                 ", company='" + company + '\'' +
-                ", adress='" + adress + '\'' +
+                ", adress='" + address + '\'' +
                 ", home='" + home + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", work='" + work + '\'' +
@@ -348,7 +435,7 @@ public class ContactData {
     }
 
     public ContactData withAddress(String attribute) {
-        this.adress = attribute;
+        this.address = attribute;
         return this;
     }
 
@@ -374,5 +461,70 @@ public class ContactData {
     public ContactData withFIO(String attribute) {
         this.fio = attribute;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        if (midlename != null ? !midlename.equals(that.midlename) : that.midlename != null) return false;
+        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+        if (nick != null ? !nick.equals(that.nick) : that.nick != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (company != null ? !company.equals(that.company) : that.company != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (addr_long != null ? !addr_long.equals(that.addr_long) : that.addr_long != null) return false;
+        if (addr_lat != null ? !addr_lat.equals(that.addr_lat) : that.addr_lat != null) return false;
+        if (addr_status != null ? !addr_status.equals(that.addr_status) : that.addr_status != null) return false;
+        if (home != null ? !home.equals(that.home) : that.home != null) return false;
+        if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
+        if (work != null ? !work.equals(that.work) : that.work != null) return false;
+        if (fax != null ? !fax.equals(that.fax) : that.fax != null) return false;
+        if (mail != null ? !mail.equals(that.mail) : that.mail != null) return false;
+        if (mail2 != null ? !mail2.equals(that.mail2) : that.mail2 != null) return false;
+        if (mail3 != null ? !mail3.equals(that.mail3) : that.mail3 != null) return false;
+        if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
+        if (address2 != null ? !address2.equals(that.address2) : that.address2 != null) return false;
+        if (phone2 != null ? !phone2.equals(that.phone2) : that.phone2 != null) return false;
+        if (note != null ? !note.equals(that.note) : that.note != null) return false;
+        if (role != null ? !role.equals(that.role) : that.role != null) return false;
+        if (im != null ? !im.equals(that.im) : that.im != null) return false;
+        if (im2 != null ? !im2.equals(that.im2) : that.im2 != null) return false;
+        return im3 != null ? im3.equals(that.im3) : that.im3 == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = firstname != null ? firstname.hashCode() : 0;
+        result = 31 * result + (midlename != null ? midlename.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        result = 31 * result + (nick != null ? nick.hashCode() : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (company != null ? company.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (addr_long != null ? addr_long.hashCode() : 0);
+        result = 31 * result + (addr_lat != null ? addr_lat.hashCode() : 0);
+        result = 31 * result + (addr_status != null ? addr_status.hashCode() : 0);
+        result = 31 * result + (home != null ? home.hashCode() : 0);
+        result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
+        result = 31 * result + (work != null ? work.hashCode() : 0);
+        result = 31 * result + (fax != null ? fax.hashCode() : 0);
+        result = 31 * result + (mail != null ? mail.hashCode() : 0);
+        result = 31 * result + (mail2 != null ? mail2.hashCode() : 0);
+        result = 31 * result + (mail3 != null ? mail3.hashCode() : 0);
+        result = 31 * result + (homepage != null ? homepage.hashCode() : 0);
+        result = 31 * result + (address2 != null ? address2.hashCode() : 0);
+        result = 31 * result + (phone2 != null ? phone2.hashCode() : 0);
+        result = 31 * result + (note != null ? note.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (im != null ? im.hashCode() : 0);
+        result = 31 * result + (im2 != null ? im2.hashCode() : 0);
+        result = 31 * result + (im3 != null ? im3.hashCode() : 0);
+        return result;
     }
 }

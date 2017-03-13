@@ -1,35 +1,47 @@
 package addressbook.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 import org.testng.annotations.Test;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 
 @XStreamAlias("group")
+@Entity
+@Table (name = "group_list")
 public class GroupData {
+    @Expose
+    @Column(name = "group_name")
     private String name;
+
+    @Expose
+    @Column(name = "group_header")
+    @Type(type= "text")
     private String header;
+
+    @Expose
+    @Column(name = "group_footer")
+    @Type(type= "text")
     private String footer;
 
+    //@XStreamOmitField
+    //@Expose
+    //private int group_parent_id;
+
     @XStreamOmitField
+    @Expose
+    private int domain_id;
+
+    @XStreamOmitField
+    @Id
+    @Column(name = "group_id")
     private int id = Integer.MAX_VALUE;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        GroupData groupData = (GroupData) o;
-
-        return id == groupData.id;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
 
     public static int getIndexById(List<GroupData> lGD, int id)
     {
@@ -123,7 +135,33 @@ public class GroupData {
     public String toString() {
         return "GroupData{" +
                 "name='" + name + '\'' +
+                ", header='" + header + '\'' +
+                ", footer='" + footer + '\'' +
+                ", domain_id=" + domain_id +
                 ", id=" + id +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        GroupData groupData = (GroupData) o;
+
+        if (domain_id != groupData.domain_id) return false;
+        if (name != null ? !name.equals(groupData.name) : groupData.name != null) return false;
+        if (header != null ? !header.equals(groupData.header) : groupData.header != null) return false;
+        return footer != null ? footer.equals(groupData.footer) : groupData.footer == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (header != null ? header.hashCode() : 0);
+        result = 31 * result + (footer != null ? footer.hashCode() : 0);
+        result = 31 * result + domain_id;
+        return result;
     }
 }

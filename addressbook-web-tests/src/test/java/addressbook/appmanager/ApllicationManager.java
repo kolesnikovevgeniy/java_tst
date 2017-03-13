@@ -25,6 +25,7 @@ public class ApllicationManager {
     // настройки таймаутов
     public static int WAIT_ELEMENT_TIMEOUT = 3;
     public static int STANDART_TIMEOUT = 60;
+    private DBHelper dbHelper;
 
     public ApllicationManager(String browser){
         this.browser = browser;
@@ -33,7 +34,8 @@ public class ApllicationManager {
     public void init() throws IOException {
 
         String target = System.getProperty("target", "local");
-        properties.load(new FileReader(new File("src/test/resources/" +target+ ".prop")));
+        dbHelper = new DBHelper();
+        properties.load(new FileReader(new File("src/test/resources/" +target+ ".properties")));
         if (browser.equals(BrowserType.FIREFOX))
         {
             wd = new FirefoxDriver();
@@ -54,6 +56,7 @@ public class ApllicationManager {
         sessionHelper = new SessionHelper(wd);
         wd.get(properties.getProperty("web.targetURL"));
         sessionHelper.login(properties.getProperty("web.login"),properties.getProperty("web.password"));
+
     }
 
 
@@ -71,5 +74,10 @@ public class ApllicationManager {
 
     public NavigationHelper goTo() {
         return navigationHelper;
+    }
+
+    public DBHelper db()
+    {
+        return dbHelper;
     }
 }

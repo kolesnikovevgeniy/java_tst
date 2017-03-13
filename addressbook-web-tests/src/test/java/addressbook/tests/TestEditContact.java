@@ -20,8 +20,7 @@ public class TestEditContact extends TestBase{
 
     @BeforeMethod
     public void before() {
-        app.goTo().homePage();
-        if (app.contacts().all().size() == 0)
+        if (app.db().contacts().size() == 0)
         {
             app.contacts().create(new ContactData().withFirstname("Test1").withMidlename("testmidle").withLastname("testlast"), true, true);
             app.goTo().homePage();
@@ -31,16 +30,17 @@ public class TestEditContact extends TestBase{
     @Test
     public void testEditContactById() {
         app.goTo().homePage();
-        Contacts contacts = app.contacts().all();
-        app.contacts().edit(contacts, new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3"), contacts.iterator().next().getId(), false, false);
+        Contacts contacts = app.db().contacts();
+        ContactData cDeleted = contacts.iterator().next();
+        ContactData cAdded = new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3");
+        app.contacts().edit(contacts, cAdded, cDeleted.getId(), false, false);
         app.goTo().homePage();
-
 
         //проверяем размерность
         assertThat(app.contacts().count(), equalTo(contacts.size()));
 
         Contacts after = app.contacts().all();
-        //проверяем идентификаторы
-        assertThat(after, equalTo(contacts));
+
+        assertThat(after, equalTo(contacts.without(cDeleted).withAdded(cAdded)));
     }
 }

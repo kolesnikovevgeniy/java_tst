@@ -27,11 +27,11 @@ public class TestCreateContact extends TestBase {
     @Test(dataProvider = "validContactsXML")
     public void testCreateContact(ContactData contact) {
         app.goTo().homePage();
-        Contacts before = app.contacts().all();
+        Contacts before = app.db().contacts();
         File photo = new File("./src/test/resources/1.png");
-        app.contacts().create(contact, true, false);
+        app.contacts().create(contact, false, false);
         app.goTo().homePage();
-        Contacts after = app.contacts().all();
+        Contacts after = app.db().contacts();
 
         //проверяем размерность
         assertThat(before.size() + 1, equalTo(after.size()));
@@ -43,7 +43,7 @@ public class TestCreateContact extends TestBase {
     @Test(enabled = false)
     public void testCreateBadContact() {
         app.goTo().homePage();
-        Contacts before = app.contacts().all();
+        Contacts before = app.db().contacts();
         ContactData contact = new ContactData().withFirstname("Test1'").withMidlename("testmidle").withLastname("testlast");
         app.contacts().create(contact, true, false);
         app.goTo().homePage();
@@ -52,7 +52,7 @@ public class TestCreateContact extends TestBase {
         //проверяем размерность
         assertThat(before.size(), equalTo(app.contacts().count()));
 
-        Contacts after = app.contacts().all();
+        Contacts after = app.db().contacts();
         //проверяем идентификаторы
         assertThat(after, equalTo(before));
     }

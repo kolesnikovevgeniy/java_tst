@@ -21,9 +21,9 @@ public class TestDeleteGroup extends TestBase{
 
     @BeforeMethod
     public void before() {
-        app.goTo().groups();
-        if (app.groups().all().size() == 0)
+        if (app.db().groups().size() == 0)
         {
+            app.goTo().groups();
             app.groups().create( new GroupData().withName("test1").withHeader("testheader").withFooter("blabla"));
         }
     }
@@ -31,14 +31,15 @@ public class TestDeleteGroup extends TestBase{
     @Test
     public void testDeleteGroup() {
 
-        Groups before = app.groups().all();
+        Groups before = app.db().groups();
         GroupData deletedGroup = before.iterator().next();
+        app.goTo().groups();
         app.groups().delete(deletedGroup.getId());
 
 
         //проверяем размерность
         assertThat(app.groups().count(), equalTo(before.size() - 1));
-        Groups after = app.groups().all();
+        Groups after = app.db().groups();
 
         //проверяем идентификаторы
         assertThat(after, equalTo(before.without(deletedGroup)));

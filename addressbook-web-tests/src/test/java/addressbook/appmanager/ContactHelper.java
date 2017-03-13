@@ -53,7 +53,8 @@ public class ContactHelper extends BaseHelper {
 
         attach(By.name("photo"), contactData.getPhoto());
 
-        if(creation && isElementPresent(By.name("new_group")))
+        // пока убираем, т.к. не знаем где в БД хранится группа, привязанныя к контакту
+        /*if(creation && isElementPresent(By.name("new_group")))
         {
             try
             {
@@ -76,7 +77,7 @@ public class ContactHelper extends BaseHelper {
         else
         {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        }*/
     }
 
     public void fillAnniversary(ContactData contactData) {
