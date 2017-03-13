@@ -33,13 +33,14 @@ public class TestEditContact extends TestBase{
         Contacts contacts = app.db().contacts();
         ContactData cDeleted = contacts.iterator().next();
         ContactData cAdded = new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3");
+        cAdded.withId(cDeleted.getId());
         app.contacts().edit(contacts, cAdded, cDeleted.getId(), false, false);
         app.goTo().homePage();
 
         //проверяем размерность
         assertThat(app.contacts().count(), equalTo(contacts.size()));
 
-        Contacts after = app.contacts().all();
+        Contacts after = app.db().contacts();
 
         assertThat(after, equalTo(contacts.without(cDeleted).withAdded(cAdded)));
     }

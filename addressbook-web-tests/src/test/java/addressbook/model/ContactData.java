@@ -399,7 +399,10 @@ public class ContactData {
                 ", nick='" + nick + '\'' +
                 ", title='" + title + '\'' +
                 ", company='" + company + '\'' +
-                ", adress='" + address + '\'' +
+                ", address='" + address + '\'' +
+                ", addr_long='" + addr_long + '\'' +
+                ", addr_lat='" + addr_lat + '\'' +
+                ", addr_status='" + addr_status + '\'' +
                 ", home='" + home + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", work='" + work + '\'' +
@@ -413,8 +416,16 @@ public class ContactData {
                 ", note='" + note + '\'' +
                 ", birthday=" + Arrays.toString(birthday) +
                 ", anniversary=" + Arrays.toString(anniversary) +
-                ", group='" + group + '\'' +
+                ", role='" + role + '\'' +
+                ", im='" + im + '\'' +
+                ", im2='" + im2 + '\'' +
+                ", im3='" + im3 + '\'' +
                 ", id=" + id +
+                ", group='" + group + '\'' +
+                ", allPhones='" + allPhones + '\'' +
+                ", fio='" + fio + '\'' +
+                ", allEmails='" + allEmails + '\'' +
+                ", photo=" + photo +
                 '}';
     }
 
@@ -470,6 +481,7 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
+        if (id != that.id) return false;
         if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
         if (midlename != null ? !midlename.equals(that.midlename) : that.midlename != null) return false;
         if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
@@ -477,9 +489,6 @@ public class ContactData {
         if (title != null ? !title.equals(that.title) : that.title != null) return false;
         if (company != null ? !company.equals(that.company) : that.company != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (addr_long != null ? !addr_long.equals(that.addr_long) : that.addr_long != null) return false;
-        if (addr_lat != null ? !addr_lat.equals(that.addr_lat) : that.addr_lat != null) return false;
-        if (addr_status != null ? !addr_status.equals(that.addr_status) : that.addr_status != null) return false;
         if (home != null ? !home.equals(that.home) : that.home != null) return false;
         if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
         if (work != null ? !work.equals(that.work) : that.work != null) return false;
@@ -490,11 +499,7 @@ public class ContactData {
         if (homepage != null ? !homepage.equals(that.homepage) : that.homepage != null) return false;
         if (address2 != null ? !address2.equals(that.address2) : that.address2 != null) return false;
         if (phone2 != null ? !phone2.equals(that.phone2) : that.phone2 != null) return false;
-        if (note != null ? !note.equals(that.note) : that.note != null) return false;
-        if (role != null ? !role.equals(that.role) : that.role != null) return false;
-        if (im != null ? !im.equals(that.im) : that.im != null) return false;
-        if (im2 != null ? !im2.equals(that.im2) : that.im2 != null) return false;
-        return im3 != null ? im3.equals(that.im3) : that.im3 == null;
+        return note != null ? note.equals(that.note) : that.note == null;
 
     }
 
@@ -507,9 +512,6 @@ public class ContactData {
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (company != null ? company.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (addr_long != null ? addr_long.hashCode() : 0);
-        result = 31 * result + (addr_lat != null ? addr_lat.hashCode() : 0);
-        result = 31 * result + (addr_status != null ? addr_status.hashCode() : 0);
         result = 31 * result + (home != null ? home.hashCode() : 0);
         result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
         result = 31 * result + (work != null ? work.hashCode() : 0);
@@ -521,10 +523,11 @@ public class ContactData {
         result = 31 * result + (address2 != null ? address2.hashCode() : 0);
         result = 31 * result + (phone2 != null ? phone2.hashCode() : 0);
         result = 31 * result + (note != null ? note.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        result = 31 * result + (im != null ? im.hashCode() : 0);
-        result = 31 * result + (im2 != null ? im2.hashCode() : 0);
-        result = 31 * result + (im3 != null ? im3.hashCode() : 0);
+        result = 31 * result + id;
         return result;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

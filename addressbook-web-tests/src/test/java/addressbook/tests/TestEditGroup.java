@@ -35,6 +35,7 @@ public class TestEditGroup extends TestBase{
         app.goTo().groups();
         GroupData gDeleted = groups.iterator().next();
         GroupData gAdded = new GroupData().withName("test1").withHeader("testheader").withFooter("blabla");
+        gAdded.withId(gDeleted.getId());
         app.groups().edit(groups,gAdded, gDeleted.getId());
 
         //проверяем размерность
