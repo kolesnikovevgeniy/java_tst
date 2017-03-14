@@ -2,8 +2,10 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -22,9 +24,19 @@ public class TestEditContact extends TestBase{
     public void before() {
         if (app.db().contacts().size() == 0)
         {
-            app.contacts().create(new ContactData().withFirstname("Test1").withMidlename("testmidle").withLastname("testlast"), true, true);
+            app.contacts().create(new ContactData().withFirstname("Test1").withMidlename("testmidle").withLastname("testlast"), true);
             app.goTo().homePage();
         }
+    }
+
+    @BeforeTest
+    public void verifyGroups()
+    {
+        if (app.db().groups().size() > 0)
+            return;
+
+        app.goTo().groups();
+        app.groups().create(new GroupData().withName("name1").withHeader("H1").withFooter("F1"));
     }
 
     @Test

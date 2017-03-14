@@ -204,6 +204,26 @@ public class ContactHelper extends BaseHelper {
         return new Contacts(contactsCache);
     }
 
+    public void selectGroupToAdd(GroupData group)
+    {
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+    }
+
+    public void to_group(ContactData contact, GroupData group)
+    {
+        selectGroupToAdd(group);
+        clickAddToGroup();
+    }
+
+    private void clickAddToGroup()
+    {
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        wd.findElement(By.name("add")).click();
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+    }
+
     public void edit(Set<ContactData> contacts, ContactData contact, int idToEdit, boolean creation, boolean createGroup) {
         clickEditContact(idToEdit);
 
@@ -273,5 +293,32 @@ public class ContactHelper extends BaseHelper {
                 .withAllEmails(allEmails)
                 .withAddress(wd.findElement(By.xpath("//div[@id='content']/br[1]")).getText());
 
+    }
+
+    public void selectGroupToContacts(GroupData group)
+    {
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(group.getName());
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+    }
+
+    public void selectContactToDeleteFromGroup(ContactData contact)
+    {
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        wd.findElement(By.xpath("//input[@value="+contact.getId()+"]")).click();
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+    }
+
+    private void clickRemoveFromGroup() {
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        wd.findElement(By.name("remove")).click();
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+    }
+
+    public void without_group(ContactData contact, GroupData group)
+    {
+        selectGroupToContacts(group);
+        selectContactToDeleteFromGroup(contact);
+        clickRemoveFromGroup();
     }
 }

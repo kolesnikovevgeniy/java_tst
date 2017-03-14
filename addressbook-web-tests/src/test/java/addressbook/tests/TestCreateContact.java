@@ -44,7 +44,7 @@ public class TestCreateContact extends TestBase {
         Contacts before = app.db().contacts();
         File photo = new File("./src/test/resources/1.png");
         contact.inGroups(groups.iterator().next());
-        app.contacts().create(contact, false, false);
+        app.contacts().create(contact, false);
         app.goTo().homePage();
         Contacts after = app.db().contacts();
 
@@ -61,7 +61,7 @@ public class TestCreateContact extends TestBase {
         app.goTo().homePage();
         Contacts before = app.db().contacts();
         ContactData contact = new ContactData().withFirstname("Test1'").withMidlename("testmidle").withLastname("testlast");
-        app.contacts().create(contact, true, false);
+        app.contacts().create(contact, true);
         app.goTo().homePage();
 
 

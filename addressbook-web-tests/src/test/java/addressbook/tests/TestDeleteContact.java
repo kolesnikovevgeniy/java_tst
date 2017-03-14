@@ -23,7 +23,7 @@ public class TestDeleteContact extends TestBase{
     public void before() {
         if (app.db().contacts().size() == 0)
         {
-            app.contacts().create(new ContactData().withFirstname("Test1").withMidlename("testmadle").withLastname("testlast"), true, false);
+            app.contacts().create(new ContactData().withFirstname("Test1").withMidlename("testmadle").withLastname("testlast"), true);
             app.goTo().homePage();
         }
     }
