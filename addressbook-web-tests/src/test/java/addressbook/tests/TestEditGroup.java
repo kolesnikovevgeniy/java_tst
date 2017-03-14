@@ -45,5 +45,8 @@ public class TestEditGroup extends TestBase{
 
         //проверяем идентификаторы
         assertThat(after, equalTo(groups.without(gDeleted).withAdded(gAdded)));
+        verifyGroupListInUI();
     }
+
+
 }

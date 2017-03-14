@@ -6,11 +6,10 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import org.hibernate.annotations.Type;
 import org.testng.annotations.Test;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @XStreamAlias("group")
 @Entity
@@ -42,6 +41,14 @@ public class GroupData {
     @Id
     @Column(name = "group_id")
     private int id = Integer.MAX_VALUE;
+
+    public Contacts getContacts() {
+        return new Contacts(contacts);
+    }
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name =  "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<ContactData> contacts = new HashSet<ContactData>();
 
     public static int getIndexById(List<GroupData> lGD, int id)
     {

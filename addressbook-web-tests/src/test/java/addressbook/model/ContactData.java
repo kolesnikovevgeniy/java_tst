@@ -3,16 +3,16 @@ package addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.io.*;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -145,7 +145,9 @@ public class ContactData {
     //@Column(name = "deprecated" )
     //private Date deprecated  = null;
 
-    private transient String group;
+    @ManyToMany(mappedBy = "contacts", fetch = FetchType.EAGER)
+    private Set<GroupData> groups = new HashSet<GroupData>();
+
     private transient String allPhones;
     private transient String fio;
     private transient String allEmails;
@@ -196,7 +198,6 @@ public class ContactData {
         this.note = note;
         this.birthday = birthday;
         this.anniversary = anniversary;
-        this.group = group;
     }
 
     public ContactData(int id, String firstname, String midlename, String lastname, String nick, String title, String company, String adress, String home, String mobile, String work, String fax, String mail, String mail2, String mail3, String homepage, String address2, String phone2, String note, String[] birthday, String[] anniversary, String group) {
@@ -220,7 +221,6 @@ public class ContactData {
         this.note = note;
         this.birthday = birthday;
         this.anniversary = anniversary;
-        this.group = group;
         this.id = id;
     }
 
@@ -275,13 +275,11 @@ public class ContactData {
         return this;
     }
 
-    public String getGroup()
+    public Groups getGroups()
     {
-        return group;
+        return new Groups(groups);
     }
-
-
-    public String[] getBirthday() {
+     public String[] getBirthday() {
         return birthday;
     }
 
@@ -421,7 +419,6 @@ public class ContactData {
                 ", im2='" + im2 + '\'' +
                 ", im3='" + im3 + '\'' +
                 ", id=" + id +
-                ", group='" + group + '\'' +
                 ", allPhones='" + allPhones + '\'' +
                 ", fio='" + fio + '\'' +
                 ", allEmails='" + allEmails + '\'' +
@@ -529,5 +526,10 @@ public class ContactData {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public ContactData inGroups(GroupData group) {
+        groups.add(group);
+        return this;
     }
 }

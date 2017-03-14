@@ -43,6 +43,7 @@ public class TestDeleteContact extends TestBase{
 
         //проверяем идентификаторы
         assertThat(after, equalTo(before.without(deletedContact)));
+        verifyContactListInUI();
     }
 
 
