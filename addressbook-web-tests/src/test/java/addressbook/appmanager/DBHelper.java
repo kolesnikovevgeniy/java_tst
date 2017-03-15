@@ -10,6 +10,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,4 +64,18 @@ public class DBHelper {
         return new Groups(contacts().stream().filter((c) -> c.getId() == contact.getId()).iterator().next().getGroups());
     }
 
+    public Groups contact_not_in_groups(ContactData contact)
+    {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List result = session.createQuery( "from GroupData where deprecated = null " ).list();
+        List<GroupData> ret = new ArrayList<GroupData>();
+        for ( GroupData g : (List<GroupData>) result ) {
+            if(g.getId() != contact.getId())
+                ret.add(g);
+        }
+        session.getTransaction().commit();
+        session.close();
+        return new Groups(ret);
+    }
 }

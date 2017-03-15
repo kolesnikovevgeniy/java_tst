@@ -4,12 +4,15 @@ import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
+import org.hamcrest.Matchers;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.Matchers.equalTo;
 
 /**
@@ -17,7 +20,7 @@ import static org.hamcrest.Matchers.equalTo;
  */
 public class TestAddContactToGroup extends TestBase{
 
-    @BeforeTest
+    @BeforeMethod
     public void verifyGroups()
     {
         if (app.db().groups().size() > 0)
@@ -27,36 +30,39 @@ public class TestAddContactToGroup extends TestBase{
         app.groups().create(new GroupData().withName("name1").withHeader("H1").withFooter("F1"));
     }
 
+    @BeforeMethod
+    public void verifyContacts()
+    {
+        if (app.db().contacts().size() == 0)
+        {
+            app.contacts().create(new ContactData().withFirstname("Test1").withMidlename("testmadle").withLastname("testlast"), true);
+            app.goTo().homePage();
+        }
+    }
+
     @Test
     public void testAddContactToGroup() {
         app.goTo().homePage();
         ContactData contact = app.contacts().all().iterator().next();
-        GroupData group = app.groups().all_from_home().iterator().next();
+        Groups groups_from_contact = app.db().groups_in_contact(contact);
 
-        // предпроверка, сравниваем кол-во групп в контакте с общим количетсвом групп
+
+        // предусловие, сравниваем кол-во групп в контакте с общим количетсвом групп
+        if (groups_from_contact.size() == app.db().groups().size())
+        {
+            app.goTo().groups();
+            app.groups().create(new GroupData().withName("name1").withHeader("H1").withFooter("F1"));
+            app.goTo().homePage();
+        }
+
         // проверяем в какой не состоит
+        GroupData contact_not_in_group = app.db().contact_not_in_groups(contact).iterator().next();
+        assertThat(app.db().contact_not_in_groups(contact).size(), not(0));
+        app.contacts().to_group(contact, contact_not_in_group);
 
-
-        app.contacts().to_group(contact, group);
-
-        //проверяем, что контакт добавился в выбранную группу через ВФ
-
+        groups_from_contact = app.db().groups_in_contact(contact);
         //проверяем, что контакт добавился
-        assertThat(app.db().groups_in_contact(contact).stream().filter((g) -> g.getId() == group.getId()).count(),
+        assertThat(groups_from_contact.stream().filter((g) -> {return g.getId() == contact_not_in_group.getId();}).count(),
                 equalTo(1L));
-
-        //ContactData cDeleted = contacts.iterator().next();
-        //ContactData cAdded = new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3");
-        //cAdded.withId(cDeleted.getId());
-        //app.contacts().edit(contacts, cAdded, cDeleted.getId(), false, false);
-        //app.goTo().homePage();
-
-        //проверяем размерность
-        //assertThat(app.contacts().count(), equalTo(contacts.size()));
-
-        //Contacts after = app.db().contacts();
-
-        //assertThat(after, equalTo(contacts.without(cDeleted).withAdded(cAdded)));
-        //verifyContactListInUI();
     }
 }

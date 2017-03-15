@@ -214,6 +214,7 @@ public class ContactHelper extends BaseHelper {
     public void to_group(ContactData contact, GroupData group)
     {
         selectGroupToAdd(group);
+        selectContact(contact);
         clickAddToGroup();
     }
 
@@ -302,7 +303,7 @@ public class ContactHelper extends BaseHelper {
         setTimeout(ApllicationManager.STANDART_TIMEOUT);
     }
 
-    public void selectContactToDeleteFromGroup(ContactData contact)
+    public void selectContact(ContactData contact)
     {
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
         wd.findElement(By.xpath("//input[@value="+contact.getId()+"]")).click();
@@ -318,7 +319,7 @@ public class ContactHelper extends BaseHelper {
     public void without_group(ContactData contact, GroupData group)
     {
         selectGroupToContacts(group);
-        selectContactToDeleteFromGroup(contact);
+        selectContact(contact);
         clickRemoveFromGroup();
     }
 }
