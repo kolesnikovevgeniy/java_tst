@@ -1,12 +1,16 @@
 package addressbook.tests;
 
+import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.stream.Collectors;
+
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 /**
  * Created by MyK on 14.03.17.
@@ -26,11 +30,21 @@ public class TestAddContactToGroup extends TestBase{
     @Test
     public void testAddContactToGroup() {
         app.goTo().homePage();
-        Contacts contacts = app.contacts().all();
-        app.goTo().groups();
-        Groups groups = app.groups().all();
-        app.goTo().homePage();
-        app.contacts().to_group(contacts.iterator().next(), groups.iterator().next());
+        ContactData contact = app.contacts().all().iterator().next();
+        GroupData group = app.groups().all_from_home().iterator().next();
+
+        // предпроверка, сравниваем кол-во групп в контакте с общим количетсвом групп
+        // проверяем в какой не состоит
+
+
+        app.contacts().to_group(contact, group);
+
+        //проверяем, что контакт добавился в выбранную группу через ВФ
+
+        //проверяем, что контакт добавился
+        assertThat(app.db().groups_in_contact(contact).stream().filter((g) -> g.getId() == group.getId()).count(),
+                equalTo(1L));
+
         //ContactData cDeleted = contacts.iterator().next();
         //ContactData cAdded = new ContactData().withFirstname("t1").withLastname("t2").withMidlename("t3");
         //cAdded.withId(cDeleted.getId());

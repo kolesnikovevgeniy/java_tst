@@ -207,7 +207,7 @@ public class ContactHelper extends BaseHelper {
     public void selectGroupToAdd(GroupData group)
     {
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
-        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
         setTimeout(ApllicationManager.STANDART_TIMEOUT);
     }
 

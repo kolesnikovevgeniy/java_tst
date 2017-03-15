@@ -1,5 +1,6 @@
 package addressbook.tests;
 
+import addressbook.model.ContactData;
 import addressbook.model.GroupData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -43,10 +44,10 @@ public class HBConectionTest {
     {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from GroupData where deprecated = null" ).list();
-        for ( GroupData group : (List<GroupData>) result ) {
-            System.out.println( group);
-            System.out.println(group.getContacts());
+        List result = session.createQuery( "from ContactData where deprecated = null" ).list();
+        for ( ContactData c : (List<ContactData>) result ) {
+            System.out.println("===");
+            System.out.println(c.getGroups());
         }
         session.getTransaction().commit();
         session.close();

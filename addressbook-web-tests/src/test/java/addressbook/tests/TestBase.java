@@ -57,4 +57,19 @@ public class TestBase {
         }
     }
 
+    /*public void verifyContactAddedToGroupInUI() {
+        if (!Boolean.getBoolean("verifyUI")) {
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contacts().all();
+            assertThat(dbContacts.stream().map((c) -> new ContactData().withId(c.getId()).withFirstname(c.getFirstname()).withLastname(c.getLastname())).collect(Collectors.toSet()), equalTo(uiContacts));
+        }
+    }
+
+    public void verifyContactDeletedFromGroupInUI() {
+        if (!Boolean.getBoolean("verifyUI")) {
+            Contacts dbContacts = app.db().contacts();
+            Contacts uiContacts = app.contacts().all();
+            assertThat(dbContacts.stream().map((c) -> new ContactData().withId(c.getId()).withFirstname(c.getFirstname()).withLastname(c.getLastname())).collect(Collectors.toSet()), equalTo(uiContacts));
+        }
+    }*/
 }

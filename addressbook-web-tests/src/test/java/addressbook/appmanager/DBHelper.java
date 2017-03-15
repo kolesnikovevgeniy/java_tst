@@ -1,5 +1,6 @@
 package addressbook.appmanager;
 
+import addressbook.model.ContactData;
 import addressbook.model.Contacts;
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
@@ -31,7 +32,7 @@ public class DBHelper {
     {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from GroupData where deprecated = null order by group_id" ).list();
+        List result = session.createQuery( "from GroupData where deprecated = null" ).list();
 
         session.getTransaction().commit();
         session.close();
@@ -44,11 +45,22 @@ public class DBHelper {
         session.beginTransaction();
 
         //выбираем только актуальные записи
-        List result = session.createQuery( "from ContactData where deprecated = null order by id" ).list();
+        List result = session.createQuery( "from ContactData where deprecated = null" ).list();
 
         session.getTransaction().commit();
         session.close();
         return new Contacts(result);
 
     }
+
+    public Contacts contacts_in_group(GroupData group)
+    {
+        return new Contacts(groups().stream().filter((g) -> g.getId() == group.getId()).iterator().next().getContacts());
+    }
+
+    public Groups groups_in_contact(ContactData contact)
+    {
+        return new Groups(contacts().stream().filter((c) -> c.getId() == contact.getId()).iterator().next().getGroups());
+    }
+
 }

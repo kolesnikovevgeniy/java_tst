@@ -145,7 +145,8 @@ public class ContactData {
     //@Column(name = "deprecated" )
     //private Date deprecated  = null;
 
-    @ManyToMany(mappedBy = "contacts", fetch = FetchType.EAGER)
+    @ManyToMany(/*mappedBy = "contacts",*/ fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name =  "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<GroupData> groups = new HashSet<GroupData>();
 
     private transient String allPhones;

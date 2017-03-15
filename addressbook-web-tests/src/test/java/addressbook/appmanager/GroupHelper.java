@@ -112,6 +112,22 @@ public class GroupHelper extends BaseHelper{
         return new Groups(groupsCache);
     }
 
+    public Groups all_from_home()
+    {
+        if(groupsCache != null)
+            return new Groups(groupsCache);
+
+        groupsCache = new Groups();
+        setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
+        List<WebElement> elements = wd.findElements(By.xpath(".//select[@name=\"to_group\"]"));
+        setTimeout(ApllicationManager.STANDART_TIMEOUT);
+        for(WebElement e : elements)
+        {
+            groupsCache.add(new GroupData(Integer.parseInt(e.findElement(By.tagName("option")).getAttribute("value")), e.findElement(By.tagName("option")).getText(), null, null));
+        }
+        return new Groups(groupsCache);
+    }
+
     public void delete(int idToDelete) {
         selectGroupById(idToDelete);
         deleteSelectedGroup();
