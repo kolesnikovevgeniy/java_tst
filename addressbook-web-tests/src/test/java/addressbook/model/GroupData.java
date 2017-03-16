@@ -42,6 +42,10 @@ public class GroupData {
     @Column(name = "group_id")
     private int id = Integer.MAX_VALUE;
 
+    @Expose
+    @Column(name = "group_parent_id")
+    private int group_parent_id;
+
     public Contacts getContacts() {
         return new Contacts(contacts);
     }
@@ -91,6 +95,10 @@ public class GroupData {
 
         if (data.name != null)
             this.name = data.name;
+    }
+
+    public int getGroup_parent_id() {
+        return group_parent_id;
     }
 
     public String getName() {

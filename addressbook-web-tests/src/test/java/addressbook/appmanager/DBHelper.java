@@ -75,11 +75,18 @@ public class DBHelper {
 
         for ( GroupData g : (List<GroupData>) result ) {
             Contacts contacts = g.getContacts();
+            boolean contactfound = false;
             for(ContactData cg: (Contacts)contacts) {
-                if (cg.getId() != contact.getId())
-                    ret.add(g);
+                if (cg.getId() == contact.getId()) {
+                    contactfound = true;
+                    break;
+                }
             }
+            if (!contactfound)
+                ret.add(g);
         }
+
+        // исключаем родительские групппв най
         session.getTransaction().commit();
         session.close();
         return new Groups(ret);

@@ -187,6 +187,7 @@ public class ContactHelper extends BaseHelper {
                 return new Contacts(contactsCache);
 
         contactsCache = new Contacts();
+
         setTimeout(ApllicationManager.WAIT_ELEMENT_TIMEOUT);
         List<WebElement> elements = wd.findElements(By.name("entry"));
         setTimeout(ApllicationManager.STANDART_TIMEOUT);

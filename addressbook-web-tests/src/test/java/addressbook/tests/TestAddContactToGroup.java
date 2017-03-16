@@ -43,6 +43,7 @@ public class TestAddContactToGroup extends TestBase{
     @Test
     public void testAddContactToGroup() {
         app.goTo().homePage();
+        app.contacts().selectGroupToContacts(new GroupData().withName("[all]"));
         ContactData contact = app.contacts().all().iterator().next();
         Groups groups_from_contact = app.db().groups_in_contact(contact);
 
@@ -56,8 +57,9 @@ public class TestAddContactToGroup extends TestBase{
         }
 
         // проверяем в какой не состоит
-        GroupData contact_not_in_group = app.db().contact_not_in_groups(contact).iterator().next();
-        assertThat(app.db().contact_not_in_groups(contact).size(), not(0));
+        Groups contact_not_in_groups = app.db().contact_not_in_groups(contact);
+        GroupData contact_not_in_group = contact_not_in_groups.iterator().next();
+        assertThat(contact_not_in_groups.size(), not(0));
         app.contacts().to_group(contact, contact_not_in_group);
 
         groups_from_contact = app.db().groups_in_contact(contact);
