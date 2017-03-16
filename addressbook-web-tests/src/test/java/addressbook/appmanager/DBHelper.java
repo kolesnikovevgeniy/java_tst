@@ -72,12 +72,21 @@ public class DBHelper {
         List result = session.createQuery( "from GroupData where deprecated = null " ).list();
 
         List<GroupData> ret = new ArrayList<GroupData>();
-
+        List<Integer> groups_to_skip = new ArrayList<Integer>();
         for ( GroupData g : (List<GroupData>) result ) {
+            if(groups_to_skip.contains(g.getId()))
+                continue;
             Contacts contacts = g.getContacts();
             boolean contactfound = false;
             for(ContactData cg: (Contacts)contacts) {
                 if (cg.getId() == contact.getId()) {
+                    groups_to_skip.add(g.getId());
+                    Integer group_id_to_skip = session.createQuery( "from GroupData where deprecated = null and group_id = " + g.getId(), GroupData.class ).list().iterator().next().getGroup_parent_id();
+                    while(group_id_to_skip != 0)
+                    {
+                        groups_to_skip.add(group_id_to_skip);
+                        group_id_to_skip = session.createQuery( "from GroupData where deprecated = null and group_id = " + group_id_to_skip, GroupData.class ).list().iterator().next().getGroup_parent_id();
+                    }
                     contactfound = true;
                     break;
                 }
@@ -86,7 +95,6 @@ public class DBHelper {
                 ret.add(g);
         }
 
-        // исключаем родительские групппв най
         session.getTransaction().commit();
         session.close();
         return new Groups(ret);

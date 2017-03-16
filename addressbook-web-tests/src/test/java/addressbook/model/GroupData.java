@@ -44,7 +44,7 @@ public class GroupData {
 
     @Expose
     @Column(name = "group_parent_id")
-    private int group_parent_id;
+    private int group_parent_id = 0;
 
     public Contacts getContacts() {
         return new Contacts(contacts);
