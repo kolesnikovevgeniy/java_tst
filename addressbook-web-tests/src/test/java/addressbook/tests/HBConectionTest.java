@@ -44,7 +44,7 @@ public class HBConectionTest {
     {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List result = session.createQuery( "from ContactData where deprecated = null" ).list();
+        List result = session.createQuery( "from address_in_groups where deprecated = null" ).list();
         for ( ContactData c : (List<ContactData>) result ) {
             System.out.println("===");
             System.out.println(c.getGroups());

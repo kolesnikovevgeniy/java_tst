@@ -10,6 +10,7 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,13 +67,34 @@ public class DBHelper {
 
     public Groups contact_not_in_groups(ContactData contact)
     {
+        Connection conn = null;
+        List<Integer> groups_in_contact = new ArrayList<Integer>();
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?user=root&password=");
+            Statement st = conn.createStatement();
+            if(st.execute("select group_id from address_in_groups where id=" + contact.getId())) {
+                ResultSet rs = st.getResultSet();
+
+                while (rs.next()) {
+                    groups_in_contact.add(rs.getInt("group_id"));
+                }
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List result = session.createQuery( "from GroupData where deprecated = null " ).list();
         List<GroupData> ret = new ArrayList<GroupData>();
+        //Groups groups_in_contact = contact.getGroups();
         for ( GroupData g : (List<GroupData>) result ) {
-            if(g.getId() != contact.getId())
-                ret.add(g);
+            for(Integer cg_id: (List<Integer>)groups_in_contact) {
+                if (g.getId() != cg_id)
+                    ret.add(g);
+            }
         }
         session.getTransaction().commit();
         session.close();
